@@ -1,0 +1,11 @@
+#window {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 5px;
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
+}
+
+#title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
