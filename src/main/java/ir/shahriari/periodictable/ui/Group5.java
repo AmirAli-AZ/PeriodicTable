@@ -2,14 +2,14 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.model.Group;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.net.URI;
 
-public class Group5 extends VBox implements Group {
+public class Group5 implements Group {
 
-    public Group5() {
+    public Group5(GridPane gridPane) {
         var vanadiumNode = new ElementNode(
                 new Element(
                         "Vanadium",
@@ -21,6 +21,7 @@ public class Group5 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Vanadium")
                 )
         );
+        GridPane.setConstraints(vanadiumNode, 4, 3);
 
         var niobiumNode = new ElementNode(
                 new Element(
@@ -33,6 +34,7 @@ public class Group5 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Niobium")
                 )
         );
+        GridPane.setConstraints(niobiumNode, 4, 4);
 
         var tantalumNode = new ElementNode(
                 new Element(
@@ -45,6 +47,7 @@ public class Group5 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Tantalum")
                 )
         );
+        GridPane.setConstraints(tantalumNode, 4, 5);
 
         var dubniumNode = new ElementNode(
                 new Element(
@@ -57,12 +60,9 @@ public class Group5 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Dubnium")
                 )
         );
+        GridPane.setConstraints(dubniumNode, 4, 6);
 
-        setSpacing(.5);
-        getChildren().addAll(
-                ElementNode.createEmptyNode(),
-                ElementNode.createEmptyNode(),
-                ElementNode.createEmptyNode(),
+        gridPane.getChildren().addAll(
                 vanadiumNode,
                 niobiumNode,
                 tantalumNode,

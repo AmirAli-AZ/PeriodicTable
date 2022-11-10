@@ -2,14 +2,14 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.model.Group;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.net.URI;
 
-public class Group3 extends VBox implements Group {
+public class Group3 implements Group {
 
-    public Group3() {
+    public Group3(GridPane gridPane) {
         var scandiumNode = new ElementNode(
                 new Element(
                         "Scandium",
@@ -21,6 +21,7 @@ public class Group3 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Scandium")
                 )
         );
+        GridPane.setConstraints(scandiumNode, 2, 3);
 
         var yttriumNode = new ElementNode(
                 new Element(
@@ -33,16 +34,11 @@ public class Group3 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Yttrium")
                 )
         );
+        GridPane.setConstraints(yttriumNode, 2, 4);
 
-        setSpacing(.5);
-        getChildren().addAll(
-                ElementNode.createEmptyNode(),
-                ElementNode.createEmptyNode(),
-                ElementNode.createEmptyNode(),
+        gridPane.getChildren().addAll(
                 scandiumNode,
-                yttriumNode,
-                ElementNode.createEmptyNode(),
-                ElementNode.createEmptyNode()
+                yttriumNode
         );
     }
 

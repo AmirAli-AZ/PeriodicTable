@@ -6,7 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -29,24 +29,18 @@ public class Main extends Application {
     }
 
     private Parent createContent() {
-        var group1 = new Group1();
-        var group2 = new Group2();
-        var group3 = new Group3();
-        var group4 = new Group4();
-        var group5 = new Group5();
+        var gridPane = new GridPane();
+        gridPane.setHgap(.5);
+        gridPane.setVgap(.5);
+        gridPane.setPadding(new Insets(5));
 
-        var box = new HBox(
-                .5,
-                group1,
-                group2,
-                group3,
-                group4,
-                group5
-        );
-        box.setPadding(new Insets(5));
-        box.setStyle("-fx-background-color: white;");
+        new Group1(gridPane);
+        new Group2(gridPane);
+        new Group3(gridPane);
+        new Group4(gridPane);
+        new Group5(gridPane);
 
-        var root = new ScrollPane(box);
+        var root = new ScrollPane(gridPane);
         root.setFitToWidth(true);
         root.setFitToHeight(true);
 

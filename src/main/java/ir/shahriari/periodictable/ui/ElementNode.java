@@ -83,7 +83,4 @@ public class ElementNode extends VBox {
         return blockMouseClick;
     }
 
-    public static ElementNode createEmptyNode() {
-        return new ElementNode(null);
-    }
 }

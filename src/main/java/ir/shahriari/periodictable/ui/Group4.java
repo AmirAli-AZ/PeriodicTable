@@ -2,6 +2,7 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.model.Group;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -9,7 +10,7 @@ import java.net.URI;
 
 public class Group4 extends VBox implements Group {
 
-    public Group4() {
+    public Group4(GridPane gridPane) {
         var titaniumNode = new ElementNode(
                 new Element(
                         "Titanium",
@@ -21,6 +22,7 @@ public class Group4 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Titanium")
                 )
         );
+        GridPane.setConstraints(titaniumNode, 3, 3);
 
         var zirconiumNode = new ElementNode(
                 new Element(
@@ -33,6 +35,7 @@ public class Group4 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Zirconium")
                 )
         );
+        GridPane.setConstraints(zirconiumNode, 3, 4);
 
         var hafniumNode = new ElementNode(
                 new Element(
@@ -45,6 +48,7 @@ public class Group4 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Hafnium")
                 )
         );
+        GridPane.setConstraints(hafniumNode, 3, 5);
 
         var rutherfordiumNode = new ElementNode(
                 new Element(
@@ -57,12 +61,9 @@ public class Group4 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Rutherfordium")
                 )
         );
+        GridPane.setConstraints(rutherfordiumNode, 3, 6);
 
-        setSpacing(.5);
-        getChildren().addAll(
-                ElementNode.createEmptyNode(),
-                ElementNode.createEmptyNode(),
-                ElementNode.createEmptyNode(),
+        gridPane.getChildren().addAll(
                 titaniumNode,
                 zirconiumNode,
                 hafniumNode,

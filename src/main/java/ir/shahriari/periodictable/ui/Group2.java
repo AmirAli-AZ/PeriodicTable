@@ -2,14 +2,14 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.model.Group;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.net.URI;
 
-public class Group2 extends VBox implements Group {
+public class Group2 implements Group {
 
-    public Group2() {
+    public Group2(GridPane gridPane) {
         var berylliumNode = new ElementNode(
                 new Element(
                         "Beryllium",
@@ -21,6 +21,7 @@ public class Group2 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Beryllium")
                 )
         );
+        GridPane.setConstraints(berylliumNode, 1, 1);
 
         var magnesiumNode = new ElementNode(
                 new Element(
@@ -33,6 +34,7 @@ public class Group2 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Magnesium")
                 )
         );
+        GridPane.setConstraints(magnesiumNode, 1, 2);
 
         var calciumNode = new ElementNode(
                 new Element(
@@ -45,6 +47,7 @@ public class Group2 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Calcium")
                 )
         );
+        GridPane.setConstraints(calciumNode, 1, 3);
 
         var strontiumNode = new ElementNode(
                 new Element(
@@ -57,6 +60,7 @@ public class Group2 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Strontium")
                 )
         );
+        GridPane.setConstraints(strontiumNode, 1, 4);
 
         var bariumNode = new ElementNode(
                 new Element(
@@ -69,6 +73,7 @@ public class Group2 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Barium")
                 )
         );
+        GridPane.setConstraints(bariumNode, 1, 5);
 
         var radiumNode = new ElementNode(
                 new Element(
@@ -81,10 +86,9 @@ public class Group2 extends VBox implements Group {
                         URI.create("https://en.wikipedia.org/wiki/Radium")
                 )
         );
+        GridPane.setConstraints(radiumNode, 1, 6);
 
-        setSpacing(.5);
-        getChildren().addAll(
-                ElementNode.createEmptyNode(),
+        gridPane.getChildren().addAll(
                 berylliumNode,
                 magnesiumNode,
                 calciumNode,
