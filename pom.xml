@@ -62,7 +62,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>ir.shahriari.periodictable/ir.shahriari.periodictable.HelloApplication
+                            <mainClass>ir.shahriari.periodictable/ir.shahriari.periodictable.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
