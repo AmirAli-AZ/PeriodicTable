@@ -95,7 +95,15 @@ public class Group1 extends VBox implements Group {
         );
 
         setSpacing(.5);
-        getChildren().addAll(hydrogenNode, lithiumNode, sodiumNode, potassiumNode, rubidiumNode, caesiumNode, franciumNode);
+        getChildren().addAll(
+                hydrogenNode,
+                lithiumNode,
+                sodiumNode,
+                potassiumNode,
+                rubidiumNode,
+                caesiumNode,
+                franciumNode
+        );
     }
 
     @Override

@@ -83,7 +83,15 @@ public class Group2 extends VBox implements Group {
         );
 
         setSpacing(.5);
-        getChildren().addAll(new ElementNode(null), berylliumNode, magnesiumNode, calciumNode, strontiumNode, bariumNode, radiumNode);
+        getChildren().addAll(
+                ElementNode.createEmptyNode(),
+                berylliumNode,
+                magnesiumNode,
+                calciumNode,
+                strontiumNode,
+                bariumNode,
+                radiumNode
+        );
     }
 
     @Override

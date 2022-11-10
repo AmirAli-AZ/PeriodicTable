@@ -1,7 +1,6 @@
 package ir.shahriari.periodictable;
 
-import ir.shahriari.periodictable.ui.Group1;
-import ir.shahriari.periodictable.ui.Group2;
+import ir.shahriari.periodictable.ui.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -31,8 +30,18 @@ public class Main extends Application {
     private Parent createContent() {
         var group1 = new Group1();
         var group2 = new Group2();
+        var group3 = new Group3();
+        var group4 = new Group4();
+        var group5 = new Group5();
 
-        var root = new HBox(.5, group1, group2);
+        var root = new HBox(
+                .5,
+                group1,
+                group2,
+                group3,
+                group4,
+                group5
+        );
         root.setPadding(new Insets(5));
         root.setStyle("-fx-background-color: white;");
         return root;
