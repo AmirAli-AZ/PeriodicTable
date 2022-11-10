@@ -72,6 +72,6 @@ public class Group5 extends VBox implements Group {
 
     @Override
     public int getGroupNumber() {
-        return 4;
+        return 5;
     }
 }
