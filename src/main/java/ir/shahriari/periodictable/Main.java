@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -34,7 +35,7 @@ public class Main extends Application {
         var group4 = new Group4();
         var group5 = new Group5();
 
-        var root = new HBox(
+        var box = new HBox(
                 .5,
                 group1,
                 group2,
@@ -42,8 +43,13 @@ public class Main extends Application {
                 group4,
                 group5
         );
-        root.setPadding(new Insets(5));
-        root.setStyle("-fx-background-color: white;");
+        box.setPadding(new Insets(5));
+        box.setStyle("-fx-background-color: white;");
+
+        var root = new ScrollPane(box);
+        root.setFitToWidth(true);
+        root.setFitToHeight(true);
+
         return root;
     }
 
