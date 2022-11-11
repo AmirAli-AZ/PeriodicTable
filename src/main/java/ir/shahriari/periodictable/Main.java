@@ -61,7 +61,10 @@ public class Main extends Application {
         headerBox.setAlignment(Pos.CENTER);
         headerBox.setPadding(new Insets(10));
 
-        return new VBox(3, headerBox, scrollPane);
+        var root = new VBox(3, headerBox, scrollPane);
+        root.setId("root");
+
+        return root;
     }
 
     public static Main getInstance() {

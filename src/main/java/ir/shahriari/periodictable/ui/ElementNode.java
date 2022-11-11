@@ -2,11 +2,10 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.Main;
 import ir.shahriari.periodictable.model.Element;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -48,21 +47,20 @@ public class ElementNode extends VBox {
         }
 
         getChildren().addAll(atomicNumberLabel, symbolLabel, nameLabel);
-        setOnMouseClicked(mouseClick);
+        setOnMouseClicked(mouseEvent -> {
+            if (isMouseClickBlocked())
+                return;
+            var infoDialog = new InfoDialog.Builder(getElement(), getScene().getWindow())
+                    .setNegativeButton("OK", null)
+                    .setPositiveButton("Source", actionEvent -> {
+                        var mainInstance = Main.getInstance();
+                        mainInstance.getHostServices().showDocument(getElement().source().toString());
+                    })
+                    .create();
+            infoDialog.openDialog();
+        });
+        Tooltip.install(this, new Tooltip(getElement().toString()));
     }
-
-    private final EventHandler<MouseEvent> mouseClick = mouseEvent -> {
-        if (isMouseClickBlocked())
-            return;
-        var infoDialog = new InfoDialog.Builder(getElement(), getScene().getWindow())
-                .setNegativeButton("OK", null)
-                .setPositiveButton("Source", actionEvent -> {
-                    var mainInstance = Main.getInstance();
-                    mainInstance.getHostServices().showDocument(getElement().source().toString());
-                })
-                .create();
-        infoDialog.openDialog();
-    };
 
     public Element getElement() {
         return element;
