@@ -49,6 +49,8 @@ public class Main extends Application {
         new Group5(gridPane);
         new Group6(gridPane);
         new Group7(gridPane);
+        new Group8(gridPane);
+        new Group9(gridPane);
 
         var scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
