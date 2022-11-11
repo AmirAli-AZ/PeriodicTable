@@ -9,3 +9,12 @@
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
+
+.element-node {
+    -fx-background-radius: 3px;
+}
+
+.element-node .symbol {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}

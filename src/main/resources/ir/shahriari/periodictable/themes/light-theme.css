@@ -1,0 +1,38 @@
+* {
+    -fx-bg-color: white;
+}
+
+.root {
+    -fx-background-color: -fx-bg-color;
+}
+
+GridPane {
+    -fx-background-color: -fx-bg-color;
+}
+
+#header-box {
+    -fx-background-color: -fx-bg-color;
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
+}
+
+#header-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.element-node {
+    -fx-background-radius: 3px;
+}
+
+.element-node .symbol {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

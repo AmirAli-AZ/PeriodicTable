@@ -3,11 +3,17 @@ package ir.shahriari.periodictable;
 import ir.shahriari.periodictable.ui.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -24,7 +30,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("PeriodicTable");
-        primaryStage.setScene(new Scene(createContent(), 900, 700));
+        var scene = new Scene(createContent(), 900, 700);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("themes/light-theme.css")).toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
@@ -39,12 +47,21 @@ public class Main extends Application {
         new Group3(gridPane);
         new Group4(gridPane);
         new Group5(gridPane);
+        new Group6(gridPane);
+        new Group7(gridPane);
 
-        var root = new ScrollPane(gridPane);
-        root.setFitToWidth(true);
-        root.setFitToHeight(true);
+        var scrollPane = new ScrollPane(gridPane);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
 
-        return root;
+        var headerTitle = new Label("Periodic Table");
+        headerTitle.setId("header-title");
+        var headerBox = new HBox(headerTitle);
+        headerBox.setId("header-box");
+        headerBox.setAlignment(Pos.CENTER);
+        headerBox.setPadding(new Insets(10));
+
+        return new VBox(3, headerBox, scrollPane);
     }
 
     public static Main getInstance() {

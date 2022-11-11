@@ -9,8 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class ElementNode extends VBox {
 
@@ -22,6 +20,7 @@ public class ElementNode extends VBox {
         setPrefSize(90, 90);
         setPadding(new Insets(5));
         setCursor(Cursor.HAND);
+        getStyleClass().add("element-node");
 
         if (element == null) {
             element = new Element("", "", 0, 0, 0, Color.TRANSPARENT, null);
@@ -31,20 +30,18 @@ public class ElementNode extends VBox {
 
         var atomicNumberLabel = new Label(element.atomicNumber() > 0 ? String.valueOf(element.atomicNumber()) : "");
         var symbolLabel = new Label(element.symbol());
-        symbolLabel.setFont(Font.font(Font.getDefault().getName(), FontWeight.BOLD, 16));
+        symbolLabel.getStyleClass().add("symbol");
         var nameLabel = new Label(element.name());
 
         var color = element.color();
-        if (color != Color.TRANSPARENT) {
-            setStyle(
-                    "-fx-background-color: #" + Integer.toHexString(color.hashCode()) + ";"
-            );
-        }
+        setStyle(
+                "-fx-background-color: #" + Integer.toHexString(color.hashCode()) + ";"
+        );
         if (color.getBrightness() < .9) {
             atomicNumberLabel.setStyle("-fx-text-fill: white;");
             symbolLabel.setStyle("-fx-text-fill: white;");
             nameLabel.setStyle("-fx-text-fill: white;");
-        }else {
+        } else {
             atomicNumberLabel.setStyle("-fx-text-fill: black;");
             symbolLabel.setStyle("-fx-text-fill: black;");
             nameLabel.setStyle("-fx-text-fill: black;");

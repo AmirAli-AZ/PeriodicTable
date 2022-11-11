@@ -41,7 +41,7 @@ public class InfoDialog extends Stage {
         initOwner(builder.owner);
         initModality(Modality.APPLICATION_MODAL);
         var scene = new Scene(builder.root, Color.TRANSPARENT);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/modal-dialog-theme.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/modal-dialog-theme.css")).toExternalForm());
         setScene(scene);
 
         scaleTransition.durationProperty().bind(builder.durationProperty);
@@ -92,7 +92,9 @@ public class InfoDialog extends Stage {
 
             var elementNode = new ElementNode(element);
             elementNode.setBlockMouseClick(true);
-            var center = new HBox(2, elementNode, new Label(element.toString()));
+            var labelInfo = new Label(element.toString());
+            labelInfo.setWrapText(true);
+            var center = new HBox(2, elementNode, labelInfo);
             center.setPadding(new Insets(8));
             root.setCenter(center);
 
