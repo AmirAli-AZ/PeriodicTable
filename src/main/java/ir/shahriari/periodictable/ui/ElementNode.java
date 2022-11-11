@@ -7,7 +7,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+
+import java.util.Objects;
 
 public class ElementNode extends VBox {
 
@@ -16,16 +17,13 @@ public class ElementNode extends VBox {
     private boolean blockMouseClick;
 
     public ElementNode(Element element) {
+        Objects.requireNonNull(element);
+        this.element = element;
+
         setPrefSize(90, 90);
         setPadding(new Insets(5));
         setCursor(Cursor.HAND);
         getStyleClass().add("element-node");
-
-        if (element == null) {
-            element = new Element("", "", 0, 0, 0, Color.TRANSPARENT, null);
-            setBlockMouseClick(true);
-        }
-        this.element = element;
 
         var atomicNumberLabel = new Label(element.atomicNumber() > 0 ? String.valueOf(element.atomicNumber()) : "");
         var symbolLabel = new Label(element.symbol());
@@ -34,7 +32,7 @@ public class ElementNode extends VBox {
 
         var color = element.color();
         setStyle(
-                "-fx-background-color: #" + Integer.toHexString(color.hashCode()) + ";"
+                "-fx-background-color: rgb(" + color.getRed() * 255 + ", " + color.getGreen() * 255 + ", " + color.getBlue() * 255 + ");"
         );
         if (color.getBrightness() < .9) {
             atomicNumberLabel.setStyle("-fx-text-fill: white;");

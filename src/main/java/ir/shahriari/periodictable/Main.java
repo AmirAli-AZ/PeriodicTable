@@ -42,6 +42,7 @@ public class Main extends Application {
         gridPane.setHgap(.5);
         gridPane.setVgap(.5);
         gridPane.setPadding(new Insets(5));
+        gridPane.setAlignment(Pos.CENTER);
 
         new Group1(gridPane);
         new Group2(gridPane);
@@ -55,6 +56,14 @@ public class Main extends Application {
         new Group10(gridPane);
         new Group11(gridPane);
         new Group12(gridPane);
+        new Group13(gridPane);
+        new Group14(gridPane);
+        new Group15(gridPane);
+        new Group16(gridPane);
+        new Group17(gridPane);
+        new Group18(gridPane);
+        new Lanthanides(gridPane);
+        new Actinides(gridPane);
 
         var scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
