@@ -30,9 +30,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("PeriodicTable");
-        var scene = new Scene(createContent(), 900, 700);
+        var scene = new Scene(createContent());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("themes/light-theme.css")).toExternalForm());
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
@@ -51,6 +52,9 @@ public class Main extends Application {
         new Group7(gridPane);
         new Group8(gridPane);
         new Group9(gridPane);
+        new Group10(gridPane);
+        new Group11(gridPane);
+        new Group12(gridPane);
 
         var scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
