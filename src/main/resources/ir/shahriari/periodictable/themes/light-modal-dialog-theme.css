@@ -10,6 +10,10 @@
     -fx-font-weight: bold;
 }
 
+#info-text-area {
+    -fx-font-size: 14px;
+}
+
 .element-node {
     -fx-background-radius: 3px;
 }
@@ -50,4 +54,3 @@
 .f-block .label {
     -fx-text-fill: black;
 }
-

@@ -95,10 +95,11 @@ public class Main extends Application {
                             jsonObject.getString("symbol"),
                             jsonObject.getInt("number"),
                             jsonObject.getDouble("atomic_mass"),
-                            jsonObject.getInt("xpos"),
+                            jsonObject.getInt("group"),
                             jsonObject.getInt("period"),
                             jsonObject.getString("block"),
-                            jsonObject.getString("source")
+                            jsonObject.getString("source"),
+                            jsonObject.getString("summary")
                     )
             );
             GridPane.setConstraints(elementNode, jsonObject.getInt("xpos") - 1, jsonObject.getInt("ypos") - 1);

@@ -16,6 +16,8 @@ public class ElementNode extends VBox {
 
     private boolean blockMouseClick;
 
+    private final Tooltip tooltip;
+
     public ElementNode(Element element) {
         Objects.requireNonNull(element);
         this.element = element;
@@ -46,16 +48,18 @@ public class ElementNode extends VBox {
         setOnMouseClicked(mouseEvent -> {
             if (isMouseClickBlocked())
                 return;
-            var infoDialog = new InfoDialog.Builder(getElement(), getScene().getWindow())
+            var infoDialog = new InfoDialog.Builder(element, getScene().getWindow())
                     .setNegativeButton("OK", null)
                     .setPositiveButton("Source", actionEvent -> {
                         var mainInstance = Main.getInstance();
-                        mainInstance.getHostServices().showDocument(getElement().source());
+                        mainInstance.getHostServices().showDocument(element.source());
                     })
                     .create();
             infoDialog.openDialog();
         });
-        Tooltip.install(this, new Tooltip(getElement().toString()));
+
+        tooltip = new Tooltip(getTooltipMessage());
+        Tooltip.install(this, tooltip);
     }
 
     public Element getElement() {
@@ -64,14 +68,26 @@ public class ElementNode extends VBox {
 
     public void setBlockMouseClick(boolean blockMouseClick) {
         this.blockMouseClick = blockMouseClick;
-        if (blockMouseClick)
+        if (blockMouseClick) {
             setCursor(Cursor.DEFAULT);
-        else
+            Tooltip.uninstall(this, tooltip);
+        }else {
             setCursor(Cursor.HAND);
+            Tooltip.install(this, tooltip);
+        }
     }
 
     public boolean isMouseClickBlocked() {
         return blockMouseClick;
+    }
+
+    public String getTooltipMessage() {
+        return  "Atomic Number: " + element.atomicNumber() + '\n' +
+                "Name: " + element.name() + '\n' +
+                "Symbol: " + element.symbol() + '\n' +
+                "Atomic Mass: " + element.atomicMass() + '\n' +
+                "Group: " + element.group() + '\n' +
+                "Period: " + element.period();
     }
 
 }

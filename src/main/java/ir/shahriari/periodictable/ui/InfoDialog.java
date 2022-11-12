@@ -8,13 +8,16 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,7 +44,7 @@ public class InfoDialog extends Stage {
         initOwner(builder.owner);
         initModality(Modality.APPLICATION_MODAL);
         var scene = new Scene(builder.root, Color.TRANSPARENT);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/modal-dialog-theme.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/light-modal-dialog-theme.css")).toExternalForm());
         setScene(scene);
 
         scaleTransition.durationProperty().bind(builder.durationProperty);
@@ -92,24 +95,30 @@ public class InfoDialog extends Stage {
         private boolean positiveButtonAdded, negativeButtonAdded;
         private InfoDialog modalDialog;
 
+        private final Element element;
+
         public Builder(Element element, Window owner) {
+            this.element = element;
             this.owner = owner;
 
             root.setId("window");
-            root.setPrefSize(400, 200);
+            root.setPrefSize(600, 400);
+            root.setPadding(new Insets(8));
 
             Label titleLabel = new Label(element.name());
             titleLabel.setId("title");
-            titleLabel.setPadding(new Insets(8));
             root.setTop(titleLabel);
 
             var elementNode = new ElementNode(element);
             elementNode.setBlockMouseClick(true);
-            var labelInfo = new Label(element.toString());
-            labelInfo.setWrapText(true);
-            var center = new HBox(2, elementNode, labelInfo);
-            center.setPadding(new Insets(8));
-            root.setCenter(center);
+            var headerInfo = new HBox(elementNode);
+            headerInfo.setAlignment(Pos.CENTER);
+            var infoTextArea = new TextArea(getInfo());
+            infoTextArea.setId("info-text-area");
+            infoTextArea.setEditable(false);
+            infoTextArea.setWrapText(true);
+            var infoBox = new VBox(5, headerInfo, infoTextArea);
+            root.setCenter(infoBox);
 
             positiveButton.setDefaultButton(true);
             positiveButton.setId("positive-button");
@@ -159,6 +168,16 @@ public class InfoDialog extends Stage {
             durationProperty.set(duration);
 
             return this;
+        }
+
+        private String getInfo() {
+            return "Atomic Number: " + element.atomicNumber() + '\n' +
+                    "Name: " + element.name() + '\n' +
+                    "Symbol: " + element.symbol() + '\n' +
+                    "Atomic Mass: " + element.atomicMass() + '\n' +
+                    "Group: " + element.group() + '\n' +
+                    "Period: " + element.period() + "\n\n" +
+                    "Summery: " + element.summary();
         }
 
         public InfoDialog create() {
