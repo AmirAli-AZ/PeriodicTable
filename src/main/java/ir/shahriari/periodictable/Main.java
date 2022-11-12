@@ -1,6 +1,7 @@
 package ir.shahriari.periodictable;
 
-import ir.shahriari.periodictable.ui.*;
+import ir.shahriari.periodictable.model.Element;
+import ir.shahriari.periodictable.ui.ElementNode;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +13,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -25,6 +30,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Main getInstance() {
+        return instance;
     }
 
     @Override
@@ -44,26 +53,11 @@ public class Main extends Application {
         gridPane.setPadding(new Insets(5));
         gridPane.setAlignment(Pos.CENTER);
 
-        new Group1(gridPane);
-        new Group2(gridPane);
-        new Group3(gridPane);
-        new Group4(gridPane);
-        new Group5(gridPane);
-        new Group6(gridPane);
-        new Group7(gridPane);
-        new Group8(gridPane);
-        new Group9(gridPane);
-        new Group10(gridPane);
-        new Group11(gridPane);
-        new Group12(gridPane);
-        new Group13(gridPane);
-        new Group14(gridPane);
-        new Group15(gridPane);
-        new Group16(gridPane);
-        new Group17(gridPane);
-        new Group18(gridPane);
-        new Lanthanides(gridPane);
-        new Actinides(gridPane);
+        try {
+            addElements(gridPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         var scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
@@ -82,7 +76,34 @@ public class Main extends Application {
         return root;
     }
 
-    public static Main getInstance() {
-        return instance;
+    private void addElements(GridPane gridPane) throws IOException {
+        var reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("periodic-table.json"))));
+        var stringBuilder = new StringBuilder();
+        String line;
+        do {
+            line = reader.readLine();
+            stringBuilder.append(line);
+        } while (line != null);
+
+        var jsonArray = new JSONArray(stringBuilder.toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            var jsonObject = jsonArray.getJSONObject(i);
+
+            var elementNode = new ElementNode(
+                    new Element(
+                            jsonObject.getString("name"),
+                            jsonObject.getString("symbol"),
+                            jsonObject.getInt("number"),
+                            jsonObject.getDouble("atomic_mass"),
+                            jsonObject.getInt("xpos"),
+                            jsonObject.getInt("period"),
+                            jsonObject.getString("block"),
+                            jsonObject.getString("source")
+                    )
+            );
+            GridPane.setConstraints(elementNode, jsonObject.getInt("xpos") - 1, jsonObject.getInt("ypos") - 1);
+
+            gridPane.getChildren().add(elementNode);
+        }
     }
 }

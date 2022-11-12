@@ -25,26 +25,24 @@ public class ElementNode extends VBox {
         setCursor(Cursor.HAND);
         getStyleClass().add("element-node");
 
-        var atomicNumberLabel = new Label(element.atomicNumber() > 0 ? String.valueOf(element.atomicNumber()) : "");
+        var atomicNumberLabel = new Label(String.valueOf(element.atomicNumber()));
+        atomicNumberLabel.getStyleClass().add("atomic-number");
         var symbolLabel = new Label(element.symbol());
         symbolLabel.getStyleClass().add("symbol");
         var nameLabel = new Label(element.name());
+        nameLabel.getStyleClass().add("name");
+        var atomicMass = new Label(String.valueOf(element.atomicMass()));
+        atomicMass.getStyleClass().add("atomic-mass");
 
-        var color = element.color();
-        setStyle(
-                "-fx-background-color: rgb(" + color.getRed() * 255 + ", " + color.getGreen() * 255 + ", " + color.getBlue() * 255 + ");"
-        );
-        if (color.getBrightness() < .9) {
-            atomicNumberLabel.setStyle("-fx-text-fill: white;");
-            symbolLabel.setStyle("-fx-text-fill: white;");
-            nameLabel.setStyle("-fx-text-fill: white;");
-        } else {
-            atomicNumberLabel.setStyle("-fx-text-fill: black;");
-            symbolLabel.setStyle("-fx-text-fill: black;");
-            nameLabel.setStyle("-fx-text-fill: black;");
+        var block = element.block();
+        switch (block.toLowerCase()) {
+            case "s" -> getStyleClass().add("s-block");
+            case "p" -> getStyleClass().add("p-block");
+            case "d" -> getStyleClass().add("d-block");
+            case "f" -> getStyleClass().add("f-block");
         }
 
-        getChildren().addAll(atomicNumberLabel, symbolLabel, nameLabel);
+        getChildren().addAll(atomicNumberLabel, symbolLabel, nameLabel, atomicMass);
         setOnMouseClicked(mouseEvent -> {
             if (isMouseClickBlocked())
                 return;
@@ -52,7 +50,7 @@ public class ElementNode extends VBox {
                     .setNegativeButton("OK", null)
                     .setPositiveButton("Source", actionEvent -> {
                         var mainInstance = Main.getInstance();
-                        mainInstance.getHostServices().showDocument(getElement().source().toString());
+                        mainInstance.getHostServices().showDocument(getElement().source());
                     })
                     .create();
             infoDialog.openDialog();

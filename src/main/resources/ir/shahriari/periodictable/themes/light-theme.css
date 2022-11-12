@@ -29,6 +29,38 @@ GridPane {
     -fx-font-weight: bold;
 }
 
+.s-block {
+    -fx-background-color: #D32143;
+}
+
+.s-block .label {
+    -fx-text-fill: white;
+}
+
+.p-block {
+    -fx-background-color: #2196F3;
+}
+
+.p-block .label {
+    -fx-text-fill: white;
+}
+
+.d-block {
+    -fx-background-color: #1ED11B;
+}
+
+.d-block .label {
+    -fx-text-fill: white;
+}
+
+.f-block {
+    -fx-background-color: #F2C80A;
+}
+
+.f-block .label {
+    -fx-text-fill: black;
+}
+
 .scroll-pane {
     -fx-background-color: transparent;
 }

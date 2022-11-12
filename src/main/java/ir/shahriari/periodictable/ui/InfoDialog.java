@@ -53,16 +53,31 @@ public class InfoDialog extends Stage {
         scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
     }
 
-    public void setDuration(Duration duration) {
-        builder.durationProperty.set(duration);
-    }
-
     public Duration getDuration() {
         return builder.durationProperty.get();
     }
 
+    public void setDuration(Duration duration) {
+        builder.durationProperty.set(duration);
+    }
+
     public ObjectProperty<Duration> durationProperty() {
         return builder.durationProperty;
+    }
+
+    public void openDialog() {
+        show();
+        var bounds = ownerRoot.localToScreen(ownerRoot.getBoundsInLocal());
+        setX(bounds.getMinX() + (bounds.getWidth() - getWidth()) / 2);
+        setY(bounds.getMinY() + (bounds.getHeight() - getHeight()) / 2);
+        scaleTransition.play();
+    }
+
+    public void closeDialog() {
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.setCycleCount(2);
+        scaleTransition.setOnFinished(event -> close());
+        scaleTransition.playFrom(scaleTransition.getDuration());
     }
 
     public static class Builder {
@@ -71,12 +86,10 @@ public class InfoDialog extends Stage {
         private final BorderPane root = new BorderPane();
         private final ButtonBar buttonBar = new ButtonBar();
         private final Button positiveButton = new Button(), negativeButton = new Button();
-
-        private boolean positiveButtonAdded, negativeButtonAdded;
-
         private final ObjectProperty<Duration> durationProperty = new SimpleObjectProperty<>(Duration.millis(300));
         private final List<EventHandler<ActionEvent>> positiveEventHandlers = new ArrayList<>(), negativeEventsHandler = new ArrayList<>();
         private final Window owner;
+        private boolean positiveButtonAdded, negativeButtonAdded;
         private InfoDialog modalDialog;
 
         public Builder(Element element, Window owner) {
@@ -152,20 +165,5 @@ public class InfoDialog extends Stage {
             modalDialog = new InfoDialog(this);
             return modalDialog;
         }
-    }
-
-    public void openDialog() {
-        show();
-        var bounds = ownerRoot.localToScreen(ownerRoot.getBoundsInLocal());
-        setX(bounds.getMinX() + (bounds.getWidth() - getWidth()) / 2);
-        setY(bounds.getMinY() + (bounds.getHeight() - getHeight()) / 2);
-        scaleTransition.play();
-    }
-
-    public void closeDialog() {
-        scaleTransition.setAutoReverse(true);
-        scaleTransition.setCycleCount(2);
-        scaleTransition.setOnFinished(event -> close());
-        scaleTransition.playFrom(scaleTransition.getDuration());
     }
 }
