@@ -12,8 +12,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -52,6 +52,9 @@ public class Main extends Application {
     }
 
     private Parent createContent() {
+        var root = new BorderPane();
+        root.setId("root");
+
         var gridPane = new GridPane();
         gridPane.setHgap(.5);
         gridPane.setVgap(.5);
@@ -68,14 +71,15 @@ public class Main extends Application {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
+        root.setCenter(scrollPane);
+
         var snapShotMenuItem = new MenuItem("SnapShot");
         snapShotMenuItem.setOnAction(actionEvent -> takeSnapShot(gridPane));
         var fileMenu = new Menu("File");
         fileMenu.getItems().add(snapShotMenuItem);
         var menuBar = new MenuBar(fileMenu);
 
-        var root = new VBox(3, menuBar, scrollPane);
-        root.setId("root");
+        root.setTop(menuBar);
 
         return root;
     }
