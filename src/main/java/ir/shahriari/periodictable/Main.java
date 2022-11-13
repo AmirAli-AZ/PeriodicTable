@@ -12,6 +12,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
@@ -75,6 +78,7 @@ public class Main extends Application {
 
         var snapShotMenuItem = new MenuItem("SnapShot");
         snapShotMenuItem.setOnAction(actionEvent -> takeSnapShot(gridPane));
+        snapShotMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
         var fileMenu = new Menu("File");
         fileMenu.getItems().add(snapShotMenuItem);
         var menuBar = new MenuBar(fileMenu);
