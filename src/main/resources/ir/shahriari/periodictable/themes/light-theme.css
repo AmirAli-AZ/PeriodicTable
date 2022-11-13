@@ -1,5 +1,6 @@
 * {
     -fx-bg-color: white;
+    -fx-accent: #506198;
 }
 
 #root {
@@ -8,11 +9,6 @@
 
 GridPane {
     -fx-background-color: -fx-bg-color;
-}
-
-#header-box {
-    -fx-background-color: -fx-bg-color;
-    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
 }
 
 #header-title {
@@ -68,3 +64,9 @@ GridPane {
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
+
+.menu-bar {
+    -fx-background-color: -fx-bg-color;
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
+}
+

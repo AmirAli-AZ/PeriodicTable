@@ -3,19 +3,24 @@ package ir.shahriari.periodictable;
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.ui.ElementNode;
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 
+import javax.imageio.ImageIO;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
@@ -63,14 +68,13 @@ public class Main extends Application {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
-        var headerTitle = new Label("Periodic Table");
-        headerTitle.setId("header-title");
-        var headerBox = new HBox(headerTitle);
-        headerBox.setId("header-box");
-        headerBox.setAlignment(Pos.CENTER);
-        headerBox.setPadding(new Insets(10));
+        var snapShotMenuItem = new MenuItem("SnapShot");
+        snapShotMenuItem.setOnAction(actionEvent -> takeSnapShot(gridPane));
+        var fileMenu = new Menu("File");
+        fileMenu.getItems().add(snapShotMenuItem);
+        var menuBar = new MenuBar(fileMenu);
 
-        var root = new VBox(3, headerBox, scrollPane);
+        var root = new VBox(3, menuBar, scrollPane);
         root.setId("root");
 
         return root;
@@ -105,6 +109,29 @@ public class Main extends Application {
             GridPane.setConstraints(elementNode, jsonObject.getInt("xpos") - 1, jsonObject.getInt("ypos") - 1);
 
             gridPane.getChildren().add(elementNode);
+        }
+    }
+
+    private void takeSnapShot(GridPane gridPane) {
+        var snapShot = gridPane.snapshot(null, null);
+        var bufferedSnapShot = SwingFXUtils.fromFXImage(snapShot, null);
+
+        var fileChooser = new FileChooser();
+        fileChooser.setTitle("Save SnapShot");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setInitialFileName("periodic-table.png");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG Files", "*.png"));
+        var file = fileChooser.showSaveDialog(gridPane.getScene().getWindow());
+
+        if (file != null) {
+            var filename = file.getName();
+            var extension = filename.substring(filename.lastIndexOf('.') + 1);
+
+            try {
+                ImageIO.write(bufferedSnapShot, extension, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

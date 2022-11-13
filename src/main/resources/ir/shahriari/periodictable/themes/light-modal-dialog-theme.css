@@ -1,5 +1,10 @@
+* {
+    -fx-bg-color: white;
+    -fx-accent: #506198;
+}
+
 #window {
-    -fx-background-color: white;
+    -fx-background-color: -fx-bg-color;
     -fx-background-radius: 5px;
     -fx-background-insets: 5px;
     -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
