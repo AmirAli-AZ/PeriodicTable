@@ -2,6 +2,7 @@ package ir.shahriari.periodictable;
 
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.ui.ElementNode;
+import ir.shahriari.periodictable.ui.PlaceHolder;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
@@ -118,6 +119,14 @@ public class Main extends Application {
 
             gridPane.getChildren().add(elementNode);
         }
+
+        var lanthanidesPlaceHolder = new PlaceHolder("57-71");
+        GridPane.setConstraints(lanthanidesPlaceHolder, 2, 5);
+
+        var actinidesPlaceHolder = new PlaceHolder("89-103");
+        GridPane.setConstraints(actinidesPlaceHolder, 2, 6);
+
+        gridPane.getChildren().addAll(lanthanidesPlaceHolder, actinidesPlaceHolder);
     }
 
     private void takeSnapShot(GridPane gridPane) {

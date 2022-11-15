@@ -70,3 +70,13 @@ GridPane {
     -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
 }
 
+.place-holder {
+    -fx-background-color: lightgray;
+    -fx-background-radius: 3px;
+}
+
+.place-holder .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
