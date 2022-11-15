@@ -4,6 +4,7 @@ import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.ui.ElementNode;
 import ir.shahriari.periodictable.ui.PlaceHolder;
 import javafx.application.Application;
+import javafx.collections.ListChangeListener;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +14,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -20,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.json.JSONArray;
 
 import javax.imageio.ImageIO;
@@ -52,6 +55,7 @@ public class Main extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("themes/light-theme.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
+        addIconsToWindows();
         primaryStage.show();
     }
 
@@ -150,5 +154,23 @@ public class Main extends Application {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void addIconsToWindows() {
+        Window.getWindows().addListener((ListChangeListener<? super Window>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    for (Window window : change.getAddedSubList()) {
+                        if (window instanceof Stage stage) {
+                            stage.getIcons().addAll(
+                                    new Image(Objects.requireNonNull(getClass().getResource("icons/icon64.png")).toExternalForm()),
+                                    new Image(Objects.requireNonNull(getClass().getResource("icons/icon32.png")).toExternalForm()),
+                                    new Image(Objects.requireNonNull(getClass().getResource("icons/icon64.png")).toExternalForm())
+                            );
+                        }
+                    }
+                }
+            }
+        });
     }
 }
