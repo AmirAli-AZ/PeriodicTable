@@ -6,7 +6,7 @@
 
     <groupId>ir.shahriari</groupId>
     <artifactId>PeriodicTable</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-ALPHA</version>
     <name>PeriodicTable</name>
 
     <properties>
@@ -84,8 +84,8 @@
                             <mainClass>ir.shahriari.periodictable/ir.shahriari.periodictable.Main
                             </mainClass>
                             <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+                            <jlinkZipName>PeriodicTable-${project.version}</jlinkZipName>
+                            <jlinkImageName>PeriodicTable-${project.version}</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
