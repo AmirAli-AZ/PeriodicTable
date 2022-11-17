@@ -11,5 +11,5 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 
 ## Images
 
-<img src="images/Screenshot_20221115_151026.png">
-<img src="images/Screenshot_20221115_151049.png">
+<img src=images/Screenshot_20221115_151026.png>
+<img src=images/Screenshot_20221115_151049.png>
