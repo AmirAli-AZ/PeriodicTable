@@ -1,22 +1,19 @@
 * {
-    -fx-bg-color: white;
+    -fx-bg-color: #3C3F41;
     -fx-accent: #506198;
 }
 
-#window {
+#root {
     -fx-background-color: -fx-bg-color;
-    -fx-background-radius: 5px;
-    -fx-background-insets: 5px;
-    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
 }
 
-#title {
+GridPane {
+    -fx-background-color: -fx-bg-color;
+}
+
+#header-title {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-}
-
-#info-text-area {
-    -fx-font-size: 14px;
 }
 
 .element-node {
@@ -60,6 +57,31 @@
     -fx-text-fill: black;
 }
 
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.menu-bar {
+    -fx-background-color: -fx-bg-color;
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
+}
+
+.menu > .label {
+    -fx-text-fill: white;
+}
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.check-menu-item {
+    -fx-mark-color: white;
+}
+
 .context-menu {
     -fx-background-color: -fx-bg-color;
     -fx-background-radius: 3px;
@@ -69,30 +91,12 @@
     -fx-border-radius: 3px;
 }
 
-.text-area {
-    -fx-background-color: transparent;
-}
-
-.text-area .viewport .content {
-    -fx-background-color: -fx-bg-color;
-}
-
-.scroll-pane {
-    -fx-background-color: transparent;
-}
-
-.scroll-pane > .viewport {
-    -fx-background-color: transparent;
-}
-
-.scroll-bar,
-.scroll-bar .decrement-button,
-.scroll-bar .increment-button {
-    -fx-background-color: -fx-bg-color;
-}
-
-.scroll-bar .thumb {
+.place-holder {
     -fx-background-color: lightgray;
     -fx-background-radius: 3px;
 }
 
+.place-holder .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}

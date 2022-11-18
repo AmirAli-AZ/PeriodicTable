@@ -1,5 +1,5 @@
 * {
-    -fx-bg-color: white;
+    -fx-bg-color: #3C3F41;
     -fx-accent: #506198;
 }
 
@@ -71,6 +71,7 @@
 
 .text-area {
     -fx-background-color: transparent;
+    -fx-text-fill: white;
 }
 
 .text-area .viewport .content {
@@ -92,7 +93,10 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: lightgray;
+    -fx-background-color: #313335;
     -fx-background-radius: 3px;
 }
 
+.label {
+    -fx-text-fill: white;
+}

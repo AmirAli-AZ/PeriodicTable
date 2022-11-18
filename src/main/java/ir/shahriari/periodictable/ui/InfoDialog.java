@@ -1,6 +1,8 @@
 package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.model.Element;
+import ir.shahriari.periodictable.utils.Theme;
+import ir.shahriari.periodictable.utils.ThemeManger;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.beans.property.ObjectProperty;
@@ -44,7 +46,10 @@ public class InfoDialog extends Stage {
         initOwner(builder.owner);
         initModality(Modality.APPLICATION_MODAL);
         var scene = new Scene(builder.root, Color.TRANSPARENT);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/light-modal-dialog-theme.css")).toExternalForm());
+        if (ThemeManger.load() == Theme.LIGHT)
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/light-modal-dialog-theme.css")).toExternalForm());
+        else
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/dark-modal-dialog-theme.css")).toExternalForm());
         setScene(scene);
 
         scaleTransition.durationProperty().bind(builder.durationProperty);

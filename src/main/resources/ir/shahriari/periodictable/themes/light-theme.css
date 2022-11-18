@@ -70,6 +70,15 @@ GridPane {
     -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
 }
 
+.context-menu {
+    -fx-background-color: -fx-bg-color;
+    -fx-background-radius: 3px;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 3px;
+}
+
 .place-holder {
     -fx-background-color: lightgray;
     -fx-background-radius: 3px;

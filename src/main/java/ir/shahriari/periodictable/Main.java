@@ -3,6 +3,8 @@ package ir.shahriari.periodictable;
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.ui.ElementNode;
 import ir.shahriari.periodictable.ui.PlaceHolder;
+import ir.shahriari.periodictable.utils.Theme;
+import ir.shahriari.periodictable.utils.ThemeManger;
 import javafx.application.Application;
 import javafx.collections.ListChangeListener;
 import javafx.embed.swing.SwingFXUtils;
@@ -10,10 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -52,7 +51,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("PeriodicTable");
         var scene = new Scene(createContent());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("themes/light-theme.css")).toExternalForm());
+        ThemeManger.setTheme(scene, ThemeManger.load());
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         addIconsToWindows();
@@ -84,8 +83,20 @@ public class Main extends Application {
         var snapShotMenuItem = new MenuItem("SnapShot");
         snapShotMenuItem.setOnAction(actionEvent -> takeSnapShot(gridPane));
         snapShotMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+
+        var themeCheckMenuItem = new CheckMenuItem("Dark Theme");
+        var theme = ThemeManger.load();
+        if (theme == Theme.DARK)
+            themeCheckMenuItem.setSelected(true);
+        themeCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue)
+                ThemeManger.setTheme(root.getScene(), Theme.DARK);
+            else
+                ThemeManger.setTheme(root.getScene(), Theme.LIGHT);
+        });
+
         var fileMenu = new Menu("File");
-        fileMenu.getItems().add(snapShotMenuItem);
+        fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem);
         var menuBar = new MenuBar(fileMenu);
 
         root.setTop(menuBar);
