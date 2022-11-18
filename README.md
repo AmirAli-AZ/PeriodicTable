@@ -11,5 +11,7 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 
 ## Images
 
-<img src=images/Screenshot_20221115_151026.png>
-<img src=images/Screenshot_20221115_151049.png>
+|                      Light                      |                       Dark                       |
+|:-----------------------------------------------:|:------------------------------------------------:|
+| <img src=images/Screenshot_20221118_174328.png> | <img src= images/Screenshot_20221118_174219.png> |
+| <img src=images/Screenshot_20221118_174353.png> | <img src=images/Screenshot_20221118_174248.png>  |
