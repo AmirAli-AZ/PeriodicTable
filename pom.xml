@@ -6,7 +6,7 @@
 
     <groupId>ir.shahriari</groupId>
     <artifactId>PeriodicTable</artifactId>
-    <version>1.0-ALPHA</version>
+    <version>1.1-ALPHA</version>
     <name>PeriodicTable</name>
 
     <properties>
