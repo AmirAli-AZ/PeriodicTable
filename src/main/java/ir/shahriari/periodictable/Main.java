@@ -95,7 +95,7 @@ public class Main extends Application {
                 ThemeManger.setTheme(root.getScene(), Theme.LIGHT);
         });
 
-        var fileMenu = new Menu("File");
+        var fileMenu = new Menu("_File");
         fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem);
         var menuBar = new MenuBar(fileMenu);
 

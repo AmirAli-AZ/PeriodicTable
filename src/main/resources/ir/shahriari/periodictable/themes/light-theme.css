@@ -89,3 +89,7 @@ GridPane {
     -fx-font-weight: bold;
 }
 
+.mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+}
+

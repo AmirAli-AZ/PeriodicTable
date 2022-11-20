@@ -100,3 +100,7 @@ GridPane {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
+
+.mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+}
