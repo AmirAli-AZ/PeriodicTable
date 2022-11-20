@@ -6,6 +6,7 @@ import ir.shahriari.periodictable.ui.PlaceHolder;
 import ir.shahriari.periodictable.utils.Theme;
 import ir.shahriari.periodictable.utils.ThemeManger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
@@ -95,8 +96,12 @@ public class Main extends Application {
                 ThemeManger.setTheme(root.getScene(), Theme.LIGHT);
         });
 
+        var closeMenuItem = new MenuItem("Close");
+        closeMenuItem.setOnAction(actionEvent -> Platform.exit());
+        closeMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
+
         var fileMenu = new Menu("_File");
-        fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem);
+        fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem, closeMenuItem);
         var menuBar = new MenuBar(fileMenu);
 
         root.setTop(menuBar);
@@ -172,8 +177,8 @@ public class Main extends Application {
             while (change.next()) {
                 if (change.wasAdded()) {
                     for (Window window : change.getAddedSubList()) {
-                        if (window instanceof Stage stage) {
-                            stage.getIcons().addAll(
+                        if (window instanceof Stage stageWindow) {
+                            stageWindow.getIcons().addAll(
                                     new Image(Objects.requireNonNull(getClass().getResource("icons/icon64.png")).toExternalForm()),
                                     new Image(Objects.requireNonNull(getClass().getResource("icons/icon32.png")).toExternalForm()),
                                     new Image(Objects.requireNonNull(getClass().getResource("icons/icon64.png")).toExternalForm())
