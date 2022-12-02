@@ -182,7 +182,7 @@ public class InfoDialog extends Stage {
                     "Atomic Mass: " + element.atomicMass() + '\n' +
                     "Group: " + element.group() + '\n' +
                     "Period: " + element.period() + "\n\n" +
-                    "Summery: " + element.summary();
+                    "Summary: " + element.summary();
         }
 
         public InfoDialog create() {
