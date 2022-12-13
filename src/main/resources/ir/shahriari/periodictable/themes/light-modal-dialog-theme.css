@@ -77,17 +77,16 @@
     -fx-background-color: -fx-bg-color;
 }
 
-.scroll-pane {
-    -fx-background-color: transparent;
+.scroll-pane,
+.scroll-pane > .viewport,
+.scroll-pane .corner {
+    -fx-background-color: -fx-bg-color;
 }
 
-.scroll-pane > .viewport {
-    -fx-background-color: transparent;
-}
-
-.scroll-bar,
-.scroll-bar .decrement-button,
-.scroll-bar .increment-button {
+.scroll-bar .track-background,
+.scroll-bar .track,
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
     -fx-background-color: -fx-bg-color;
 }
 
@@ -95,4 +94,3 @@
     -fx-background-color: lightgray;
     -fx-background-radius: 3px;
 }
-

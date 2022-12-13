@@ -57,14 +57,6 @@ GridPane {
     -fx-text-fill: black;
 }
 
-.scroll-pane {
-    -fx-background-color: transparent;
-}
-
-.scroll-pane > .viewport {
-    -fx-background-color: transparent;
-}
-
 .menu-bar {
     -fx-background-color: -fx-bg-color;
     -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
@@ -91,5 +83,23 @@ GridPane {
 
 .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.scroll-pane .corner {
+    -fx-background-color: -fx-bg-color;
+}
+
+.scroll-bar .track-background,
+.scroll-bar .track,
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: -fx-bg-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: lightgray;
+    -fx-background-radius: 3px;
 }
 
