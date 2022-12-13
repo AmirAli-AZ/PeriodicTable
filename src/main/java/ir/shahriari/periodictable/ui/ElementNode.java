@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.util.Objects;
@@ -23,6 +24,7 @@ public class ElementNode extends VBox {
         this.element = element;
 
         setPrefSize(90, 90);
+        setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         setPadding(new Insets(5));
         setCursor(Cursor.HAND);
         getStyleClass().add("element-node");

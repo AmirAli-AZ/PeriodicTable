@@ -1,8 +1,6 @@
 package ir.shahriari.periodictable;
 
-import ir.shahriari.periodictable.model.Element;
-import ir.shahriari.periodictable.ui.ElementNode;
-import ir.shahriari.periodictable.ui.PlaceHolder;
+import ir.shahriari.periodictable.utils.TableCreator;
 import ir.shahriari.periodictable.utils.Theme;
 import ir.shahriari.periodictable.utils.ThemeManger;
 import javafx.application.Application;
@@ -23,18 +21,17 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.json.JSONArray;
 
 import javax.imageio.ImageIO;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Objects;
 
 public class Main extends Application {
 
     private static Main instance;
+
+    private TableCreator tableCreator;
 
     public Main() {
         instance = this;
@@ -51,12 +48,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("PeriodicTable");
-        var scene = new Scene(createContent());
+        var scene = new Scene(createContent(), 900, 600);
         ThemeManger.setTheme(scene, ThemeManger.load());
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         addIconsToWindows();
         primaryStage.show();
+
+        tableCreator.create();
     }
 
     private Parent createContent() {
@@ -69,11 +68,7 @@ public class Main extends Application {
         gridPane.setPadding(new Insets(5));
         gridPane.setAlignment(Pos.CENTER);
 
-        try {
-            addElements(gridPane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tableCreator = new TableCreator(gridPane);
 
         var scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
@@ -100,8 +95,17 @@ public class Main extends Application {
         closeMenuItem.setOnAction(actionEvent -> Platform.exit());
         closeMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
 
+        var wideLayoutCheckMenuItem = new CheckMenuItem("Wide Layout");
+        wideLayoutCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (tableCreator.isCreatingTable())
+                return;
+
+            tableCreator.setWideLayout(newValue);
+            tableCreator.create();
+        });
+
         var fileMenu = new Menu("_File");
-        fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem, closeMenuItem);
+        fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem, wideLayoutCheckMenuItem, closeMenuItem);
         var menuBar = new MenuBar(fileMenu);
 
         root.setTop(menuBar);
@@ -109,45 +113,6 @@ public class Main extends Application {
         return root;
     }
 
-    private void addElements(GridPane gridPane) throws IOException {
-        var reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("periodic-table.json"))));
-        var stringBuilder = new StringBuilder();
-        String line;
-        do {
-            line = reader.readLine();
-            stringBuilder.append(line);
-        } while (line != null);
-
-        var jsonArray = new JSONArray(stringBuilder.toString());
-        for (int i = 0; i < jsonArray.length(); i++) {
-            var jsonObject = jsonArray.getJSONObject(i);
-
-            var elementNode = new ElementNode(
-                    new Element(
-                            jsonObject.getString("name"),
-                            jsonObject.getString("symbol"),
-                            jsonObject.getInt("number"),
-                            jsonObject.getDouble("atomic_mass"),
-                            jsonObject.getInt("group"),
-                            jsonObject.getInt("period"),
-                            jsonObject.getString("block"),
-                            jsonObject.getString("source"),
-                            jsonObject.getString("summary")
-                    )
-            );
-            GridPane.setConstraints(elementNode, jsonObject.getInt("xpos") - 1, jsonObject.getInt("ypos") - 1);
-
-            gridPane.getChildren().add(elementNode);
-        }
-
-        var lanthanidesPlaceHolder = new PlaceHolder("57-71");
-        GridPane.setConstraints(lanthanidesPlaceHolder, 2, 5);
-
-        var actinidesPlaceHolder = new PlaceHolder("89-103");
-        GridPane.setConstraints(actinidesPlaceHolder, 2, 6);
-
-        gridPane.getChildren().addAll(lanthanidesPlaceHolder, actinidesPlaceHolder);
-    }
 
     private void takeSnapShot(GridPane gridPane) {
         var snapShot = gridPane.snapshot(null, null);
