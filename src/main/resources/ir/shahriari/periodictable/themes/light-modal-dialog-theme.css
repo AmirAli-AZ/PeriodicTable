@@ -70,7 +70,7 @@
 }
 
 .text-area {
-    -fx-background-color: transparent;
+    -fx-background-color: -fx-bg-color;
 }
 
 .text-area .viewport .content {
