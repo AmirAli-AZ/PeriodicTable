@@ -15,3 +15,7 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 |:-----------------------------------------------:|:------------------------------------------------:|
 | <img src=images/Screenshot_20221118_174328.png> | <img src= images/Screenshot_20221118_174219.png> |
 | <img src=images/Screenshot_20221118_174353.png> | <img src=images/Screenshot_20221118_174248.png>  |
+
+#### Wide Layout
+
+<img src=images/periodic-table-wide.png>
