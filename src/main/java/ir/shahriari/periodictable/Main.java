@@ -1,5 +1,6 @@
 package ir.shahriari.periodictable;
 
+import ir.shahriari.periodictable.ui.AboutDialog;
 import ir.shahriari.periodictable.utils.TableCreator;
 import ir.shahriari.periodictable.utils.Theme;
 import ir.shahriari.periodictable.utils.ThemeManger;
@@ -32,6 +33,8 @@ public class Main extends Application {
     private static Main instance;
 
     private TableCreator tableCreator;
+
+    private final AboutDialog aboutDialog = new AboutDialog();
 
     public Main() {
         instance = this;
@@ -106,7 +109,14 @@ public class Main extends Application {
 
         var fileMenu = new Menu("_File");
         fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem, wideLayoutCheckMenuItem, closeMenuItem);
-        var menuBar = new MenuBar(fileMenu);
+
+        var aboutMenuItem = new MenuItem("About");
+        aboutMenuItem.setOnAction(actionEvent -> aboutDialog.show());
+
+        var helpMenu = new Menu("_Help");
+        helpMenu.getItems().addAll(aboutMenuItem);
+
+        var menuBar = new MenuBar(fileMenu, helpMenu);
 
         root.setTop(menuBar);
 

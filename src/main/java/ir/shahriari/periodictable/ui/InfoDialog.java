@@ -31,10 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class InfoDialog extends Stage {
+public final class InfoDialog extends Stage {
 
     private final Builder builder;
-    private final ScaleTransition scaleTransition = new ScaleTransition();
+    private ScaleTransition scaleTransition = new ScaleTransition();
     private final Parent ownerRoot;
 
     public InfoDialog(Builder builder) {
@@ -47,9 +47,9 @@ public class InfoDialog extends Stage {
         initModality(Modality.APPLICATION_MODAL);
         var scene = new Scene(builder.root, Color.TRANSPARENT);
         if (ThemeManger.load() == Theme.LIGHT)
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/light-modal-dialog-theme.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/light-dialog-theme.css")).toExternalForm());
         else
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/dark-modal-dialog-theme.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/dark-dialog-theme.css")).toExternalForm());
         setScene(scene);
 
         scaleTransition.durationProperty().bind(builder.durationProperty);

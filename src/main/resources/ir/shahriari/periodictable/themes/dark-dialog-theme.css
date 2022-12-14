@@ -10,6 +10,10 @@
     -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
 }
 
+#root {
+    -fx-background-color: -fx-bg-color;
+}
+
 #title {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -98,4 +102,19 @@
 
 .label {
     -fx-text-fill: white;
+}
+
+TextFlow {
+    -fx-background-color: -fx-bg-color;
+}
+
+Text {
+    -fx-font-size: 16px;
+    -fx-fill: white;
+}
+
+.hyperlink {
+    -fx-font-size: 16px;
+    -fx-border-color: transparent;
+    -fx-text-fill: -fx-accent;
 }

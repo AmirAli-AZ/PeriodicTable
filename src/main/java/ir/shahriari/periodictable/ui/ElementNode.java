@@ -64,11 +64,11 @@ public class ElementNode extends VBox {
         Tooltip.install(this, tooltip);
     }
 
-    public Element getElement() {
+    public final Element getElement() {
         return element;
     }
 
-    public void setBlockMouseClick(boolean blockMouseClick) {
+    public final void setBlockMouseClick(boolean blockMouseClick) {
         this.blockMouseClick = blockMouseClick;
         if (blockMouseClick) {
             setCursor(Cursor.DEFAULT);
@@ -79,11 +79,11 @@ public class ElementNode extends VBox {
         }
     }
 
-    public boolean isMouseClickBlocked() {
+    public final boolean isMouseClickBlocked() {
         return blockMouseClick;
     }
 
-    public String getTooltipMessage() {
+    public final String getTooltipMessage() {
         return  "Atomic Number: " + element.atomicNumber() + '\n' +
                 "Name: " + element.name() + '\n' +
                 "Symbol: " + element.symbol() + '\n' +
