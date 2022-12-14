@@ -56,6 +56,7 @@ public class InfoDialog extends Stage {
         setScene(scene);
         initOwner(owner);
         initModality(Modality.APPLICATION_MODAL);
+        setOnShowing(windowEvent -> ThemeManger.setTheme(scene, ThemeManger.load()));
 
         scaleTransition.durationProperty().bind(durationProperty());
         scaleTransition.setFromX(0);
