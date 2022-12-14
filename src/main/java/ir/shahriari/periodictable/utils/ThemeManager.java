@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-public final class ThemeManger {
+public final class ThemeManager {
 
 
     public static void setTheme(Scene scene, Theme theme) {

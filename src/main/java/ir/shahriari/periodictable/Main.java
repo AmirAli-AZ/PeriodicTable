@@ -4,7 +4,7 @@ import ir.shahriari.periodictable.ui.AboutDialog;
 import ir.shahriari.periodictable.ui.InfoDialog;
 import ir.shahriari.periodictable.utils.TableCreator;
 import ir.shahriari.periodictable.utils.Theme;
-import ir.shahriari.periodictable.utils.ThemeManger;
+import ir.shahriari.periodictable.utils.ThemeManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -55,7 +55,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("PeriodicTable");
         var scene = new Scene(createContent(), 900, 600);
-        ThemeManger.setTheme(scene, ThemeManger.load());
+        ThemeManager.setTheme(scene, ThemeManager.load());
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         addIconsToWindows();
@@ -91,14 +91,14 @@ public class Main extends Application {
         snapShotMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
 
         var themeCheckMenuItem = new CheckMenuItem("Dark Theme");
-        var theme = ThemeManger.load();
+        var theme = ThemeManager.load();
         if (theme == Theme.DARK)
             themeCheckMenuItem.setSelected(true);
         themeCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue)
-                ThemeManger.setTheme(root.getScene(), Theme.DARK);
+                ThemeManager.setTheme(root.getScene(), Theme.DARK);
             else
-                ThemeManger.setTheme(root.getScene(), Theme.LIGHT);
+                ThemeManager.setTheme(root.getScene(), Theme.LIGHT);
         });
 
         var closeMenuItem = new MenuItem("Close");

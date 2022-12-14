@@ -2,7 +2,7 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.Main;
 import ir.shahriari.periodictable.model.Element;
-import ir.shahriari.periodictable.utils.ThemeManger;
+import ir.shahriari.periodictable.utils.ThemeManager;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.beans.property.ObjectProperty;
@@ -52,11 +52,10 @@ public class InfoDialog extends Stage {
 
         var content = createContent();
         var scene = new Scene(content, Color.TRANSPARENT);
-        ThemeManger.setTheme(scene, ThemeManger.load());
         setScene(scene);
         initOwner(owner);
         initModality(Modality.APPLICATION_MODAL);
-        setOnShowing(windowEvent -> ThemeManger.setTheme(scene, ThemeManger.load()));
+        setOnShowing(windowEvent -> ThemeManager.setTheme(scene, ThemeManager.load()));
 
         scaleTransition.durationProperty().bind(durationProperty());
         scaleTransition.setFromX(0);
