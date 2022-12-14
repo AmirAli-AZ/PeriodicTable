@@ -1,7 +1,6 @@
 package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.Main;
-import ir.shahriari.periodictable.utils.Theme;
 import ir.shahriari.periodictable.utils.ThemeManger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -44,22 +43,6 @@ public class AboutDialog extends Stage {
         setTitle("About");
         var scene = new Scene(root, 600, 400);
         setScene(scene);
-        setOnShowing(windowEvent -> {
-            var light = Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/light-dialog-theme.css")).toExternalForm();
-            var dark = Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/themes/dark-dialog-theme.css")).toExternalForm();
-            var stylesheets = scene.getStylesheets();
-
-            if (ThemeManger.load() == Theme.LIGHT) {
-                if (stylesheets.isEmpty())
-                    stylesheets.add(light);
-                else
-                    stylesheets.set(0, light);
-            }else {
-                if (stylesheets.isEmpty())
-                    stylesheets.add(dark);
-                else
-                    stylesheets.set(0, dark);
-            }
-        });
+        setOnShowing(windowEvent -> ThemeManger.setTheme(scene, ThemeManger.load()));
     }
 }

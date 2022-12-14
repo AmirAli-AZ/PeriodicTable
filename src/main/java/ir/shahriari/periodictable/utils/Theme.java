@@ -14,22 +14,11 @@ public enum Theme {
         this.path = path;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public String getPath() {
+    public final String getPath() {
         return path;
-    }
-
-    public static Theme findByName(String name) {
-        if (name == null)
-            return LIGHT;
-
-        return switch (name.toLowerCase()) {
-            case "dark" -> DARK;
-
-            default -> LIGHT;
-        };
     }
 }

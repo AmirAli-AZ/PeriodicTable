@@ -36,7 +36,13 @@ public final class ThemeManger {
             properties.load(fis);
             fis.close();
 
-            return Theme.findByName(properties.getProperty("theme"));
+            var theme = properties.getProperty("theme");
+            if (theme == null)
+                return Theme.LIGHT;
+            else if (theme.equalsIgnoreCase("dark"))
+                return Theme.DARK;
+            else
+                return Theme.LIGHT;
         }catch (IOException e) {
             e.printStackTrace();
         }
