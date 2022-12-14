@@ -81,6 +81,13 @@ public class Main extends Application {
         snapShotMenuItem.setOnAction(actionEvent -> takeSnapShot(gridPane));
         snapShotMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
 
+        var closeMenuItem = new MenuItem("Close");
+        closeMenuItem.setOnAction(actionEvent -> Platform.exit());
+        closeMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
+
+        var fileMenu = new Menu("_File");
+        fileMenu.getItems().addAll(snapShotMenuItem, closeMenuItem);
+
         var themeCheckMenuItem = new CheckMenuItem("Dark Theme");
         var theme = ThemeManager.load();
         if (theme == Theme.DARK)
@@ -92,10 +99,6 @@ public class Main extends Application {
                 ThemeManager.applyThemeToAllWindows(Theme.LIGHT);
         });
 
-        var closeMenuItem = new MenuItem("Close");
-        closeMenuItem.setOnAction(actionEvent -> Platform.exit());
-        closeMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
-
         var wideLayoutCheckMenuItem = new CheckMenuItem("Wide Layout");
         wideLayoutCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
             if (tableCreator.isCreatingTable())
@@ -105,8 +108,8 @@ public class Main extends Application {
             tableCreator.create();
         });
 
-        var fileMenu = new Menu("_File");
-        fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem, wideLayoutCheckMenuItem, closeMenuItem);
+        var viewMenu = new Menu("_View");
+        viewMenu.getItems().addAll(themeCheckMenuItem, wideLayoutCheckMenuItem);
 
         var aboutMenuItem = new MenuItem("About");
         aboutMenuItem.setOnAction(actionEvent -> {
@@ -117,7 +120,7 @@ public class Main extends Application {
         var helpMenu = new Menu("_Help");
         helpMenu.getItems().addAll(aboutMenuItem);
 
-        var menuBar = new MenuBar(fileMenu, helpMenu);
+        var menuBar = new MenuBar(fileMenu, viewMenu, helpMenu);
 
         root.setTop(menuBar);
 
