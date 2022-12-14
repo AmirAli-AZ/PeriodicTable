@@ -13,11 +13,13 @@ import java.util.Objects;
 
 public class ElementNode extends VBox {
 
-    private final Element element;
+    private Element element;
 
     private boolean blockMouseClick;
 
     private final Tooltip tooltip;
+
+    private final Label atomicNumberLabel, symbolLabel, nameLabel, atomicMass;
 
     public ElementNode(Element element) {
         Objects.requireNonNull(element);
@@ -29,13 +31,13 @@ public class ElementNode extends VBox {
         setCursor(Cursor.HAND);
         getStyleClass().add("element-node");
 
-        var atomicNumberLabel = new Label(String.valueOf(element.atomicNumber()));
+        atomicNumberLabel = new Label(String.valueOf(element.atomicNumber()));
         atomicNumberLabel.getStyleClass().add("atomic-number");
-        var symbolLabel = new Label(element.symbol());
+        symbolLabel = new Label(element.symbol());
         symbolLabel.getStyleClass().add("symbol");
-        var nameLabel = new Label(element.name());
+        nameLabel = new Label(element.name());
         nameLabel.getStyleClass().add("name");
-        var atomicMass = new Label(String.valueOf(element.atomicMass()));
+        atomicMass = new Label(String.valueOf(element.atomicMass()));
         atomicMass.getStyleClass().add("atomic-mass");
 
         var block = element.block();
@@ -50,13 +52,8 @@ public class ElementNode extends VBox {
         setOnMouseClicked(mouseEvent -> {
             if (isMouseClickBlocked())
                 return;
-            var infoDialog = new InfoDialog.Builder(element, getScene().getWindow())
-                    .setNegativeButton("OK", null)
-                    .setPositiveButton("Source", actionEvent -> {
-                        var mainInstance = Main.getInstance();
-                        mainInstance.getHostServices().showDocument(element.source());
-                    })
-                    .create();
+            var infoDialog = Main.getInstance().getInfoDialog();
+            infoDialog.setElement(element);
             infoDialog.openDialog();
         });
 
@@ -66,6 +63,24 @@ public class ElementNode extends VBox {
 
     public final Element getElement() {
         return element;
+    }
+
+    public final void setElement(Element element) {
+        Objects.requireNonNull(element);
+        this.element = element;
+
+        atomicNumberLabel.setText(String.valueOf(element.atomicNumber()));
+        symbolLabel.setText(element.symbol());
+        nameLabel.setText(element.name());
+        atomicMass.setText(String.valueOf(element.atomicMass()));
+
+        var block = element.block();
+        switch (block.toLowerCase()) {
+            case "s" -> getStyleClass().set(1, "s-block");
+            case "p" -> getStyleClass().set(1, "p-block");
+            case "d" -> getStyleClass().set(1, "d-block");
+            case "f" -> getStyleClass().set(1, "f-block");
+        }
     }
 
     public final void setBlockMouseClick(boolean blockMouseClick) {

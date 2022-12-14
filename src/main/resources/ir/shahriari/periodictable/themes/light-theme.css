@@ -95,6 +95,7 @@ GridPane {
 .place-holder .label {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
+    -fx-text-fill: black;
 }
 
 .mnemonic-underline {

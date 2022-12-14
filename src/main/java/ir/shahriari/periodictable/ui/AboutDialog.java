@@ -4,6 +4,7 @@ import ir.shahriari.periodictable.Main;
 import ir.shahriari.periodictable.utils.ThemeManger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,13 @@ import java.util.Objects;
 public class AboutDialog extends Stage {
 
     public AboutDialog() {
+        setTitle("About");
+        var scene = new Scene(createContent(), 600, 400);
+        setScene(scene);
+        setOnShowing(windowEvent -> ThemeManger.setTheme(scene, ThemeManger.load()));
+    }
+
+    private Parent createContent() {
         var text1 = new Text(
                 "\"Periodic Table\" is a simple periodic table program for chemistry lovers by 9th grade students of Shahriari High School.\n"
         );
@@ -30,19 +38,16 @@ public class AboutDialog extends Stage {
         link2.setOnAction(actionEvent -> Main.getInstance().getHostServices().showDocument("https://github.com/AmirAli-AZ/PeriodicTable"));
 
         var textFlow = new TextFlow(text1, text2, link1, text3, text4, link2);
-        textFlow.setPadding(new Insets(10));
+        textFlow.setPadding(new Insets(8));
 
         var logo = new ImageView(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/icons/logo.png")).toExternalForm());
         var header = new HBox(logo);
         header.setAlignment(Pos.CENTER);
-        header.setPadding(new Insets(10));
+        header.setPadding(new Insets(8));
 
         var root = new VBox(3, header, textFlow);
         root.setId("root");
 
-        setTitle("About");
-        var scene = new Scene(root, 600, 400);
-        setScene(scene);
-        setOnShowing(windowEvent -> ThemeManger.setTheme(scene, ThemeManger.load()));
+        return root;
     }
 }

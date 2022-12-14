@@ -1,13 +1,12 @@
 package ir.shahriari.periodictable.ui;
 
+import ir.shahriari.periodictable.Main;
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.utils.ThemeManger;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -26,49 +25,123 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
-public final class InfoDialog extends Stage {
+public class InfoDialog extends Stage {
 
-    private final Builder builder;
     private final ScaleTransition scaleTransition = new ScaleTransition();
+
+    private final ObjectProperty<Duration> durationProperty = new SimpleObjectProperty<>(Duration.millis(300));
+
     private final Parent ownerRoot;
 
-    public InfoDialog(Builder builder) {
+    private HBox headerInfo;
+
+    private Element element;
+
+    private ElementNode elementNode;
+
+    private TextArea infoTextArea;
+
+    private Label titleLabel;
+
+    public InfoDialog(Window owner) {
         super(StageStyle.TRANSPARENT);
 
-        this.builder = builder;
-        ownerRoot = builder.owner.getScene().getRoot();
+        ownerRoot = owner.getScene().getRoot();
 
-        initOwner(builder.owner);
-        initModality(Modality.APPLICATION_MODAL);
-        var scene = new Scene(builder.root, Color.TRANSPARENT);
+        var content = createContent();
+        var scene = new Scene(content, Color.TRANSPARENT);
         ThemeManger.setTheme(scene, ThemeManger.load());
         setScene(scene);
+        initOwner(owner);
+        initModality(Modality.APPLICATION_MODAL);
 
-        scaleTransition.durationProperty().bind(builder.durationProperty);
+        scaleTransition.durationProperty().bind(durationProperty());
         scaleTransition.setFromX(0);
         scaleTransition.setFromY(0);
         scaleTransition.setToX(1);
         scaleTransition.setToY(1);
-        scaleTransition.setNode(builder.root);
+        scaleTransition.setNode(content);
         scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
     }
 
-    public Duration getDuration() {
-        return builder.durationProperty.get();
+    private Parent createContent() {
+        var root = new BorderPane();
+        root.setId("window");
+        root.setPrefSize(600, 400);
+        root.setPadding(new Insets(8));
+
+        titleLabel = new Label();
+        titleLabel.setId("title");
+        titleLabel.setPadding(new Insets(8));
+        root.setTop(titleLabel);
+
+        headerInfo = new HBox();
+        headerInfo.setAlignment(Pos.CENTER);
+
+        infoTextArea = new TextArea();
+        infoTextArea.setEditable(false);
+        infoTextArea.setWrapText(true);
+
+        var infoBox = new VBox(5, headerInfo, infoTextArea);
+        root.setCenter(infoBox);
+
+        var sourceButton = new Button("Source");
+        sourceButton.setDefaultButton(true);
+        sourceButton.setOnAction(actionEvent -> {
+            if (element == null)
+                return;
+            Main.getInstance().getHostServices().showDocument(element.source());
+        });
+
+        var okButton = new Button("OK");
+        okButton.setOnAction(actionEvent -> closeDialog());
+
+        var buttonBar = new ButtonBar();
+        buttonBar.setPadding(new Insets(8));
+        buttonBar.getButtons().addAll(okButton, sourceButton);
+        root.setBottom(buttonBar);
+
+        return root;
     }
 
-    public void setDuration(Duration duration) {
-        builder.durationProperty.set(duration);
+    private String getInfo() {
+        return "Atomic Number: " + element.atomicNumber() + '\n' +
+                "Name: " + element.name() + '\n' +
+                "Symbol: " + element.symbol() + '\n' +
+                "Atomic Mass: " + element.atomicMass() + '\n' +
+                "Group: " + element.group() + '\n' +
+                "Period: " + element.period() + "\n\n" +
+                "Summary: " + element.summary();
     }
 
-    public ObjectProperty<Duration> durationProperty() {
-        return builder.durationProperty;
+    public final void setElement(Element element) {
+        Objects.requireNonNull(element);
+        this.element = element;
+
+        if (elementNode == null) {
+            elementNode = new ElementNode(element);
+            headerInfo.getChildren().add(elementNode);
+        }
+        elementNode.setElement(element);
+        titleLabel.setText(element.name());
+        infoTextArea.setText(getInfo());
     }
 
-    public void openDialog() {
+    public final Duration getDuration() {
+        return durationProperty.get();
+    }
+
+    public final void setDuration(Duration duration) {
+        durationProperty.set(duration);
+    }
+
+    public final ObjectProperty<Duration> durationProperty() {
+        return durationProperty;
+    }
+
+    public final void openDialog() {
         show();
         var bounds = ownerRoot.localToScreen(ownerRoot.getBoundsInLocal());
         setX(bounds.getMinX() + (bounds.getWidth() - getWidth()) / 2);
@@ -76,113 +149,15 @@ public final class InfoDialog extends Stage {
         scaleTransition.play();
     }
 
-    public void closeDialog() {
+    public final void closeDialog() {
         scaleTransition.setAutoReverse(true);
         scaleTransition.setCycleCount(2);
-        scaleTransition.setOnFinished(event -> close());
+        scaleTransition.setOnFinished(event -> {
+            close();
+            scaleTransition.setAutoReverse(false);
+            scaleTransition.setCycleCount(1);
+            scaleTransition.setOnFinished(null);
+        });
         scaleTransition.playFrom(scaleTransition.getDuration());
-    }
-
-    public static class Builder {
-
-        // UI components
-        private final BorderPane root = new BorderPane();
-        private final ButtonBar buttonBar = new ButtonBar();
-        private final Button positiveButton = new Button(), negativeButton = new Button();
-        private final ObjectProperty<Duration> durationProperty = new SimpleObjectProperty<>(Duration.millis(300));
-        private final List<EventHandler<ActionEvent>> positiveEventHandlers = new ArrayList<>(), negativeEventsHandler = new ArrayList<>();
-        private final Window owner;
-        private boolean positiveButtonAdded, negativeButtonAdded;
-        private InfoDialog modalDialog;
-
-        private final Element element;
-
-        public Builder(Element element, Window owner) {
-            this.element = element;
-            this.owner = owner;
-
-            root.setId("window");
-            root.setPrefSize(600, 400);
-            root.setPadding(new Insets(8));
-
-            Label titleLabel = new Label(element.name());
-            titleLabel.setId("title");
-            root.setTop(titleLabel);
-
-            var elementNode = new ElementNode(element);
-            elementNode.setBlockMouseClick(true);
-            var headerInfo = new HBox(elementNode);
-            headerInfo.setAlignment(Pos.CENTER);
-            var infoTextArea = new TextArea(getInfo());
-            infoTextArea.setId("info-text-area");
-            infoTextArea.setEditable(false);
-            infoTextArea.setWrapText(true);
-            var infoBox = new VBox(5, headerInfo, infoTextArea);
-            root.setCenter(infoBox);
-
-            positiveButton.setDefaultButton(true);
-            positiveButton.setId("positive-button");
-            negativeButton.setId("negative-button");
-
-            buttonBar.setPadding(new Insets(8));
-            root.setBottom(buttonBar);
-        }
-
-        public Builder setPositiveButton(String text, EventHandler<ActionEvent> event) {
-            if (event != null)
-                positiveEventHandlers.add(event);
-            positiveButton.setText(text);
-            positiveButton.setOnAction(actionEvent -> {
-                if (modalDialog != null)
-                    modalDialog.closeDialog();
-                positiveEventHandlers.forEach(eventEventHandler -> eventEventHandler.handle(actionEvent));
-            });
-
-            if (!positiveButtonAdded) {
-                buttonBar.getButtons().add(positiveButton);
-                positiveButtonAdded = true;
-            }
-
-            return this;
-        }
-
-        public Builder setNegativeButton(String text, EventHandler<ActionEvent> event) {
-            if (event != null)
-                negativeEventsHandler.add(event);
-            negativeButton.setText(text);
-            negativeButton.setOnAction(actionEvent -> {
-                if (modalDialog != null)
-                    modalDialog.closeDialog();
-                negativeEventsHandler.forEach(eventEventHandler -> eventEventHandler.handle(actionEvent));
-            });
-
-            if (!negativeButtonAdded) {
-                buttonBar.getButtons().add(negativeButton);
-                negativeButtonAdded = true;
-            }
-
-            return this;
-        }
-
-        public Builder setDuration(Duration duration) {
-            durationProperty.set(duration);
-
-            return this;
-        }
-
-        private String getInfo() {
-            return "Atomic Number: " + element.atomicNumber() + '\n' +
-                    "Name: " + element.name() + '\n' +
-                    "Symbol: " + element.symbol() + '\n' +
-                    "Atomic Mass: " + element.atomicMass() + '\n' +
-                    "Group: " + element.group() + '\n' +
-                    "Period: " + element.period() + "\n\n" +
-                    "Summary: " + element.summary();
-        }
-
-        public InfoDialog create() {
-            modalDialog = new InfoDialog(this);
-            return modalDialog;
-        }
     }
 }

@@ -1,6 +1,7 @@
 package ir.shahriari.periodictable;
 
 import ir.shahriari.periodictable.ui.AboutDialog;
+import ir.shahriari.periodictable.ui.InfoDialog;
 import ir.shahriari.periodictable.utils.TableCreator;
 import ir.shahriari.periodictable.utils.Theme;
 import ir.shahriari.periodictable.utils.ThemeManger;
@@ -34,7 +35,9 @@ public class Main extends Application {
 
     private TableCreator tableCreator;
 
-    private final AboutDialog aboutDialog = new AboutDialog();
+    private AboutDialog aboutDialog;
+
+    private InfoDialog infoDialog;
 
     public Main() {
         instance = this;
@@ -56,6 +59,10 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         addIconsToWindows();
+
+        aboutDialog = new AboutDialog();
+        infoDialog = new InfoDialog(primaryStage);
+
         primaryStage.show();
 
         tableCreator.create();
@@ -163,5 +170,9 @@ public class Main extends Application {
                 }
             }
         });
+    }
+
+    public InfoDialog getInfoDialog() {
+        return infoDialog;
     }
 }
