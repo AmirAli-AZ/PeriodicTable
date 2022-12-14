@@ -11,6 +11,7 @@
     -fx-background-color: -fx-bg-color;
     -fx-background-radius: 5px;
     -fx-background-insets: 5px;
+    -fx-padding: 5px;
     -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
 }
 

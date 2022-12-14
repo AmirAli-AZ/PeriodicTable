@@ -46,8 +46,7 @@ public class ElementNode extends VBox {
             infoDialog.openDialog();
         });
 
-        Tooltip tooltip = new Tooltip(getTooltipMessage(element));
-        Tooltip.install(this, tooltip);
+        Tooltip.install(this, new Tooltip(getTooltipMessage(element)));
     }
 
     public final Element getElement() {

@@ -65,15 +65,13 @@ public class InfoDialog extends Stage {
         var root = new BorderPane();
         root.setId("window");
         root.setPrefSize(600, 400);
-        root.setPadding(new Insets(8));
 
         var titleLabel = new Label(element.name());
         titleLabel.setId("title");
         titleLabel.setPadding(new Insets(8));
         root.setTop(titleLabel);
 
-        var elementNode = new ElementNode(element);
-        var headerInfo = new HBox(elementNode);
+        var headerInfo = new HBox(new ElementNode(element));
         headerInfo.setAlignment(Pos.CENTER);
 
         var infoTextArea = new TextArea(getInfo(element));
