@@ -83,7 +83,7 @@ public class Main extends Application {
 
         var closeMenuItem = new MenuItem("Close");
         closeMenuItem.setOnAction(actionEvent -> Platform.exit());
-        closeMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
+        closeMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
 
         var fileMenu = new Menu("_File");
         fileMenu.getItems().addAll(snapShotMenuItem, closeMenuItem);
