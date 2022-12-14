@@ -100,6 +100,7 @@ public class Main extends Application {
         });
 
         var wideLayoutCheckMenuItem = new CheckMenuItem("Wide Layout");
+        wideLayoutCheckMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN));
         wideLayoutCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
             if (tableCreator.isCreatingTable())
                 return;
