@@ -123,8 +123,9 @@ public class InfoDialog extends Stage {
         if (elementNode == null) {
             elementNode = new ElementNode(element);
             headerInfo.getChildren().add(elementNode);
+        }else {
+            elementNode.setElement(element);
         }
-        elementNode.setElement(element);
         titleLabel.setText(element.name());
         infoTextArea.setText(getInfo());
     }
