@@ -1,7 +1,6 @@
 package ir.shahriari.periodictable;
 
 import ir.shahriari.periodictable.ui.AboutDialog;
-import ir.shahriari.periodictable.ui.InfoDialog;
 import ir.shahriari.periodictable.utils.TableCreator;
 import ir.shahriari.periodictable.utils.Theme;
 import ir.shahriari.periodictable.utils.ThemeManager;
@@ -35,10 +34,6 @@ public class Main extends Application {
 
     private TableCreator tableCreator;
 
-    private AboutDialog aboutDialog;
-
-    private InfoDialog infoDialog;
-
     public Main() {
         instance = this;
     }
@@ -59,10 +54,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         addIconsToWindows();
-
-        aboutDialog = new AboutDialog();
-        infoDialog = new InfoDialog(primaryStage);
-
         primaryStage.show();
 
         tableCreator.create();
@@ -96,9 +87,9 @@ public class Main extends Application {
             themeCheckMenuItem.setSelected(true);
         themeCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue)
-                ThemeManager.setTheme(root.getScene(), Theme.DARK);
+                ThemeManager.applyThemeToAllWindows(Theme.DARK);
             else
-                ThemeManager.setTheme(root.getScene(), Theme.LIGHT);
+                ThemeManager.applyThemeToAllWindows(Theme.LIGHT);
         });
 
         var closeMenuItem = new MenuItem("Close");
@@ -118,7 +109,10 @@ public class Main extends Application {
         fileMenu.getItems().addAll(snapShotMenuItem, themeCheckMenuItem, wideLayoutCheckMenuItem, closeMenuItem);
 
         var aboutMenuItem = new MenuItem("About");
-        aboutMenuItem.setOnAction(actionEvent -> aboutDialog.show());
+        aboutMenuItem.setOnAction(actionEvent -> {
+            var aboutDialog = new AboutDialog();
+            aboutDialog.show();
+        });
 
         var helpMenu = new Menu("_Help");
         helpMenu.getItems().addAll(aboutMenuItem);
@@ -170,9 +164,5 @@ public class Main extends Application {
                 }
             }
         });
-    }
-
-    public InfoDialog getInfoDialog() {
-        return infoDialog;
     }
 }

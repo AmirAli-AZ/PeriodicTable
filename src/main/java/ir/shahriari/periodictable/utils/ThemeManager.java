@@ -1,6 +1,8 @@
 package ir.shahriari.periodictable.utils;
 
 import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -22,6 +24,16 @@ public final class ThemeManager {
             save(theme);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void applyThemeToAllWindows(Theme theme) {
+        var windows = Window.getWindows();
+        for (Window window : windows) {
+            if (window instanceof Stage stage) {
+                var scene = stage.getScene();
+                setTheme(scene, theme);
+            }
         }
     }
 

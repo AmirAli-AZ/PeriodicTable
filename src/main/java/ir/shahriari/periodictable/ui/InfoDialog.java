@@ -35,27 +35,22 @@ public class InfoDialog extends Stage {
 
     private final Parent ownerRoot;
 
-    private HBox headerInfo;
+    private final Element element;
 
-    private Element element;
-
-    private ElementNode elementNode;
-
-    private TextArea infoTextArea;
-
-    private Label titleLabel;
-
-    public InfoDialog(Window owner) {
+    public InfoDialog(Element element, Window owner) {
         super(StageStyle.TRANSPARENT);
+        Objects.requireNonNull(element);
+        Objects.requireNonNull(owner);
 
+        this.element = element;
         ownerRoot = owner.getScene().getRoot();
 
         var content = createContent();
         var scene = new Scene(content, Color.TRANSPARENT);
+        ThemeManager.setTheme(scene, ThemeManager.load());
         setScene(scene);
         initOwner(owner);
         initModality(Modality.APPLICATION_MODAL);
-        setOnShowing(windowEvent -> ThemeManager.setTheme(scene, ThemeManager.load()));
 
         scaleTransition.durationProperty().bind(durationProperty());
         scaleTransition.setFromX(0);
@@ -72,15 +67,16 @@ public class InfoDialog extends Stage {
         root.setPrefSize(600, 400);
         root.setPadding(new Insets(8));
 
-        titleLabel = new Label();
+        var titleLabel = new Label(element.name());
         titleLabel.setId("title");
         titleLabel.setPadding(new Insets(8));
         root.setTop(titleLabel);
 
-        headerInfo = new HBox();
+        var elementNode = new ElementNode(element);
+        var headerInfo = new HBox(elementNode);
         headerInfo.setAlignment(Pos.CENTER);
 
-        infoTextArea = new TextArea();
+        var infoTextArea = new TextArea(getInfo(element));
         infoTextArea.setEditable(false);
         infoTextArea.setWrapText(true);
 
@@ -89,11 +85,7 @@ public class InfoDialog extends Stage {
 
         var sourceButton = new Button("Source");
         sourceButton.setDefaultButton(true);
-        sourceButton.setOnAction(actionEvent -> {
-            if (element == null)
-                return;
-            Main.getInstance().getHostServices().showDocument(element.source());
-        });
+        sourceButton.setOnAction(actionEvent -> Main.getInstance().getHostServices().showDocument(element.source()));
 
         var okButton = new Button("OK");
         okButton.setOnAction(actionEvent -> closeDialog());
@@ -106,7 +98,7 @@ public class InfoDialog extends Stage {
         return root;
     }
 
-    private String getInfo() {
+    private String getInfo(Element element) {
         return "Atomic Number: " + element.atomicNumber() + '\n' +
                 "Name: " + element.name() + '\n' +
                 "Symbol: " + element.symbol() + '\n' +
@@ -114,20 +106,6 @@ public class InfoDialog extends Stage {
                 "Group: " + element.group() + '\n' +
                 "Period: " + element.period() + "\n\n" +
                 "Summary: " + element.summary();
-    }
-
-    public final void setElement(Element element) {
-        Objects.requireNonNull(element);
-        this.element = element;
-
-        if (elementNode == null) {
-            elementNode = new ElementNode(element);
-            headerInfo.getChildren().add(elementNode);
-        }else {
-            elementNode.setElement(element);
-        }
-        titleLabel.setText(element.name());
-        infoTextArea.setText(getInfo());
     }
 
     public final Duration getDuration() {
@@ -153,12 +131,7 @@ public class InfoDialog extends Stage {
     public final void closeDialog() {
         scaleTransition.setAutoReverse(true);
         scaleTransition.setCycleCount(2);
-        scaleTransition.setOnFinished(event -> {
-            close();
-            scaleTransition.setAutoReverse(false);
-            scaleTransition.setCycleCount(1);
-            scaleTransition.setOnFinished(null);
-        });
+        scaleTransition.setOnFinished(event -> close());
         scaleTransition.playFrom(scaleTransition.getDuration());
     }
 }
