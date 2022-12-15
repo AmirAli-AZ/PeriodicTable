@@ -22,7 +22,7 @@ public final class Environment {
         try {
             var dir = Files.createDirectories(path);
             if (OS.isWindows())
-                hide(dir.getParent());
+                hide(dir);
         } catch (IOException e) {
             e.printStackTrace();
         }

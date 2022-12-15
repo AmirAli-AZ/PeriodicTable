@@ -92,12 +92,7 @@ public class Main extends Application {
         var theme = ThemeManager.load();
         if (theme == Theme.DARK)
             themeCheckMenuItem.setSelected(true);
-        themeCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue)
-                ThemeManager.applyThemeToAllWindows(Theme.DARK);
-            else
-                ThemeManager.applyThemeToAllWindows(Theme.LIGHT);
-        });
+        themeCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> ThemeManager.applyThemeToAllWindows(newValue ? Theme.DARK : Theme.LIGHT));
 
         var wideLayoutCheckMenuItem = new CheckMenuItem("Wide Layout");
         wideLayoutCheckMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN));
@@ -136,19 +131,20 @@ public class Main extends Application {
         var fileChooser = new FileChooser();
         fileChooser.setTitle("Save SnapShot");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        fileChooser.setInitialFileName("periodic-table.png");
+        fileChooser.setInitialFileName(tableCreator.isWideLayout() ? "wide-periodic-table.png" : "periodic-table.png");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG Files", "*.png"));
         var file = fileChooser.showSaveDialog(gridPane.getScene().getWindow());
 
-        if (file != null) {
-            var filename = file.getName();
-            var extension = filename.substring(filename.lastIndexOf('.') + 1);
+        if (file == null)
+            return;
 
-            try {
-                ImageIO.write(bufferedSnapShot, extension, file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        var filename = file.getName();
+        var extension = filename.substring(filename.lastIndexOf('.') + 1);
+
+        try {
+            ImageIO.write(bufferedSnapShot, extension, file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
