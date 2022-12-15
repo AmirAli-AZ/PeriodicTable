@@ -47,10 +47,14 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("PeriodicTable");
         var scene = new Scene(createContent(), 900, 600);
-        ThemeManager.setTheme(scene, ThemeManager.load());
+
+        var theme = ThemeManager.load();
+        ThemeManager.setTheme(scene, theme);
+        ThemeManager.save(theme);
+
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         addIconsToWindows();
@@ -89,10 +93,17 @@ public class Main extends Application {
         fileMenu.getItems().addAll(snapShotMenuItem, closeMenuItem);
 
         var themeCheckMenuItem = new CheckMenuItem("Dark Theme");
-        var theme = ThemeManager.load();
-        if (theme == Theme.DARK)
+        if (ThemeManager.load() == Theme.DARK)
             themeCheckMenuItem.setSelected(true);
-        themeCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> ThemeManager.applyThemeToAllWindows(newValue ? Theme.DARK : Theme.LIGHT));
+        themeCheckMenuItem.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            var theme = newValue ? Theme.DARK : Theme.LIGHT;
+            ThemeManager.applyThemeToAllWindows(theme);
+            try {
+                ThemeManager.save(theme);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         var wideLayoutCheckMenuItem = new CheckMenuItem("Wide Layout");
         wideLayoutCheckMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN));
