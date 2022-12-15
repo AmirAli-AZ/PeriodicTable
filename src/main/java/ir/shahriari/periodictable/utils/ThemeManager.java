@@ -13,12 +13,7 @@ public final class ThemeManager {
 
 
     public static void setTheme(Scene scene, Theme theme) {
-        var stylesheets = scene.getStylesheets();
-
-        if (stylesheets.isEmpty())
-            stylesheets.add(theme.getPath());
-        else
-            stylesheets.set(0, theme.getPath());
+        setThemeWithoutSaving(scene, theme);
 
         try {
             save(theme);
@@ -32,8 +27,14 @@ public final class ThemeManager {
         for (Window window : windows) {
             if (window instanceof Stage stage) {
                 var scene = stage.getScene();
-                setTheme(scene, theme);
+                setThemeWithoutSaving(scene, theme);
             }
+        }
+
+        try {
+            save(theme);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -68,5 +69,14 @@ public final class ThemeManager {
         var fos = new FileOutputStream(Environment.getAppData() + File.separator + "theme-config.properties");
         properties.store(fos, "DO NOT EDIT");
         fos.close();
+    }
+
+    private static void setThemeWithoutSaving(Scene scene, Theme theme) {
+        var stylesheets = scene.getStylesheets();
+
+        if (stylesheets.isEmpty())
+            stylesheets.add(theme.getPath());
+        else
+            stylesheets.set(0, theme.getPath());
     }
 }
