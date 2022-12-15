@@ -121,10 +121,6 @@ GridPane {
     -fx-background-radius: 3px;
 }
 
-TextFlow {
-    -fx-background-color: -fx-bg-color;
-}
-
 Text {
     -fx-font-size: 16px;
 }
@@ -132,5 +128,5 @@ Text {
 .hyperlink {
     -fx-font-size: 16px;
     -fx-border-color: transparent;
-    -fx-text-fill: -fx-accent;
+    -fx-text-fill: #2196F3;
 }
