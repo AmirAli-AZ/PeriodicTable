@@ -87,7 +87,7 @@ GridPane {
     -fx-background-radius: 3px;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
-    -fx-border-color: lightgray;
+    -fx-border-color: gray;
     -fx-border-radius: 3px;
 }
 
@@ -148,3 +148,19 @@ Text {
     -fx-border-color: transparent;
     -fx-text-fill: #2196F3;
 }
+
+.button {
+    -fx-background-color: #313335;
+    -fx-background-radius: 3px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-style: solid;
+    -fx-border-color: gray;
+    -fx-border-radius: 3px;
+    -fx-border-width: 1px;
+}
+
+.default-button {
+    -fx-background-color: -fx-accent;
+}
+

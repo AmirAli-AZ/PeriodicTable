@@ -82,6 +82,7 @@ public class InfoDialog extends Stage {
         root.setCenter(infoBox);
 
         var sourceButton = new Button("Source");
+        sourceButton.getStyleClass().add("default-button");
         sourceButton.setDefaultButton(true);
         sourceButton.setOnAction(actionEvent -> Main.getInstance().getHostServices().showDocument(element.source()));
 

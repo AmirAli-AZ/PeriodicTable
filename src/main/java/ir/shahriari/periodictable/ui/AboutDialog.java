@@ -26,6 +26,11 @@ public class AboutDialog extends Stage {
     }
 
     private Parent createContent() {
+        var logo = new ImageView(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/icons/logo.png")).toExternalForm());
+        var header = new HBox(logo);
+        header.setAlignment(Pos.CENTER);
+        header.setPadding(new Insets(8));
+
         var text1 = new Text(
                 "\"Periodic Table\" is a simple periodic table program for chemistry lovers by 9th grade students of Shahriari High School.\n"
         );
@@ -39,11 +44,6 @@ public class AboutDialog extends Stage {
 
         var textFlow = new TextFlow(text1, text2, link1, text3, text4, link2);
         textFlow.setPadding(new Insets(8));
-
-        var logo = new ImageView(Objects.requireNonNull(getClass().getResource("/ir/shahriari/periodictable/icons/logo.png")).toExternalForm());
-        var header = new HBox(logo);
-        header.setAlignment(Pos.CENTER);
-        header.setPadding(new Insets(8));
 
         var root = new VBox(3, header, textFlow);
         root.setId("root");
