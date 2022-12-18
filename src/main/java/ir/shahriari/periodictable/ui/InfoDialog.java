@@ -83,6 +83,7 @@ public class InfoDialog extends Stage {
 
         var boilLabel = new Label();
         boilLabel.setFont(Font.font(16));
+        boilLabel.setAlignment(Pos.CENTER_LEFT);
         boilLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         HBox.setHgrow(boilLabel, Priority.ALWAYS);
 
@@ -104,12 +105,14 @@ public class InfoDialog extends Stage {
             boilUnits.getSelectionModel().select(TempUnits.KELVIN);
         }
         var boilBox = new HBox(3, boilLabel, boilUnits);
+        boilBox.setAlignment(Pos.CENTER_LEFT);
 
 
         var melt = element.melt();
 
         var meltLabel = new Label();
         meltLabel.setFont(Font.font(16));
+        meltLabel.setAlignment(Pos.CENTER_LEFT);
         meltLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         HBox.setHgrow(meltLabel, Priority.ALWAYS);
 
@@ -131,6 +134,7 @@ public class InfoDialog extends Stage {
             meltUnits.getSelectionModel().select(TempUnits.KELVIN);
         }
         var meltBox = new HBox(3, meltLabel, meltUnits);
+        meltBox.setAlignment(Pos.CENTER_LEFT);
 
         var infoBox = new VBox(10, infoLabel, boilBox, meltBox);
         var scrollPane = new ScrollPane(infoBox);
