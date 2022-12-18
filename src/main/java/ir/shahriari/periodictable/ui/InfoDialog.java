@@ -72,8 +72,8 @@ public class InfoDialog extends Stage {
         titleLabel.setPadding(new Insets(8));
         root.setTop(titleLabel);
 
-        var headerInfo = new HBox(new ElementNode(element));
-        headerInfo.setAlignment(Pos.CENTER);
+        var infoHeader = new HBox(new ElementNode(element));
+        infoHeader.setAlignment(Pos.CENTER);
 
         var infoLabel = new Label(getInfo(element));
         infoLabel.setFont(Font.font(16));
@@ -136,7 +136,7 @@ public class InfoDialog extends Stage {
         var scrollPane = new ScrollPane(infoBox);
         scrollPane.setFitToWidth(true);
 
-        var centerRoot = new VBox(5, headerInfo, scrollPane);
+        var centerRoot = new VBox(5, infoHeader, scrollPane);
         centerRoot.setPadding(new Insets(8));
 
         root.setCenter(centerRoot);
