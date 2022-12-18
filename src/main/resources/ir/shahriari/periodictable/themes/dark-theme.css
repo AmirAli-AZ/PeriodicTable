@@ -145,7 +145,7 @@ Text {
 }
 
 .button {
-    -fx-background-color: #313335;
+    -fx-background-color: -fx-bg-color;
     -fx-background-radius: 3px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
