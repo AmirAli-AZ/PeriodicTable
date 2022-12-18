@@ -2,23 +2,24 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.Main;
 import ir.shahriari.periodictable.model.Element;
+import ir.shahriari.periodictable.model.TempUnits;
 import ir.shahriari.periodictable.utils.ThemeManager;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -74,12 +75,71 @@ public class InfoDialog extends Stage {
         var headerInfo = new HBox(new ElementNode(element));
         headerInfo.setAlignment(Pos.CENTER);
 
-        var infoTextArea = new TextArea(getInfo(element));
-        infoTextArea.setEditable(false);
-        infoTextArea.setWrapText(true);
+        var infoLabel = new Label(getInfo(element));
+        infoLabel.setFont(Font.font(16));
+        infoLabel.setWrapText(true);
 
-        var infoBox = new VBox(5, headerInfo, infoTextArea);
-        root.setCenter(infoBox);
+        var boil = element.boil();
+
+        var boilLabel = new Label();
+        boilLabel.setFont(Font.font(16));
+        boilLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        HBox.setHgrow(boilLabel, Priority.ALWAYS);
+
+        var boilUnits = new ComboBox<>(FXCollections.observableArrayList(TempUnits.values()));
+        boilUnits.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            var doubleBoil = ((Number) boil).doubleValue();
+            switch (newValue) {
+                case KELVIN -> boilLabel.setText("Boil: " + doubleBoil);
+                case CENTIGRADE -> boilLabel.setText("Boil: " + convertKelvinToCentigrade(doubleBoil));
+                case FAHRENHEIT -> boilLabel.setText("Boil: " + convertKelvinToFahrenheit(doubleBoil));
+            }
+        });
+
+        if (boil.toString().equals("null")) {
+            boilLabel.setText("Boil: N/A");
+            boilUnits.setDisable(true);
+        } else {
+            boilLabel.setText("Boil: " + ((Number) boil).doubleValue());
+            boilUnits.getSelectionModel().select(TempUnits.KELVIN);
+        }
+        var boilBox = new HBox(3, boilLabel, boilUnits);
+
+
+        var melt = element.melt();
+
+        var meltLabel = new Label();
+        meltLabel.setFont(Font.font(16));
+        meltLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        HBox.setHgrow(meltLabel, Priority.ALWAYS);
+
+        var meltUnits = new ComboBox<>(FXCollections.observableArrayList(TempUnits.values()));
+        meltUnits.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            var doubleMelt = ((Number) melt).doubleValue();
+            switch (newValue) {
+                case KELVIN -> meltLabel.setText("Melt: " + doubleMelt);
+                case CENTIGRADE -> meltLabel.setText("Melt: " + convertKelvinToCentigrade(doubleMelt));
+                case FAHRENHEIT -> meltLabel.setText("Melt: " + convertKelvinToFahrenheit(doubleMelt));
+            }
+        });
+
+        if (melt.toString().equals("null")) {
+            meltLabel.setText("Melt: N/A");
+            meltUnits.setDisable(true);
+        } else {
+            meltLabel.setText("Melt: " + ((Number) melt).doubleValue());
+            meltUnits.getSelectionModel().select(TempUnits.KELVIN);
+        }
+        var meltBox = new HBox(3, meltLabel, meltUnits);
+
+        var infoBox = new VBox(10, infoLabel, boilBox, meltBox);
+        var scrollPane = new ScrollPane(infoBox);
+        scrollPane.setFitToWidth(true);
+
+        var centerRoot = new VBox(5, headerInfo, scrollPane);
+        centerRoot.setPadding(new Insets(8));
+
+        root.setCenter(centerRoot);
 
         var sourceButton = new Button("Source");
         sourceButton.getStyleClass().add("default-button");
@@ -132,5 +192,13 @@ public class InfoDialog extends Stage {
         scaleTransition.setCycleCount(2);
         scaleTransition.setOnFinished(event -> close());
         scaleTransition.playFrom(scaleTransition.getDuration());
+    }
+
+    private double convertKelvinToCentigrade(double kelvin) {
+        return kelvin - 273.15;
+    }
+
+    private double convertKelvinToFahrenheit(double kelvin) {
+        return (convertKelvinToCentigrade(kelvin) * 9 / 5) + 32;
     }
 }

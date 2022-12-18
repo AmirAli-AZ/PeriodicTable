@@ -91,16 +91,6 @@ GridPane {
     -fx-border-radius: 3px;
 }
 
-.text-area {
-    -fx-background-color: -fx-bg-color;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-}
-
-.text-area .viewport .content {
-    -fx-background-color: -fx-bg-color;
-}
-
 .place-holder {
     -fx-background-color: lightgray;
     -fx-background-radius: 3px;
@@ -164,4 +154,47 @@ Text {
 .default-button {
     -fx-background-color: -fx-accent;
 }
+
+.combo-box {
+    -fx-background-color: -fx-bg-color;
+    -fx-background-radius: 5px;
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -fx-bg-color;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 0);
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: -fx-bg-color;
+    -fx-background-radius: 0px;
+    -fx-text-fill: white;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected,
+.combo-box-popup .list-view .list-cell:filled:selected:focused,
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: -fx-accent;
+}
+
+.combo-box .arrow-button {
+    -fx-cursor: hand;
+}
+
+.combo-box .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
 

@@ -66,7 +66,9 @@ public class TableCreator implements Runnable {
                             jsonObject.getInt("period"),
                             jsonObject.getString("block"),
                             jsonObject.getString("source"),
-                            jsonObject.getString("summary")
+                            jsonObject.getString("summary"),
+                            jsonObject.get("boil"),
+                            jsonObject.get("melt")
                     )
             );
             GridPane.setConstraints(
