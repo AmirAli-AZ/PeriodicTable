@@ -13,8 +13,8 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 
 |                      Light                      |                      Dark                       |
 |:-----------------------------------------------:|:-----------------------------------------------:|
-| <img src=images/Screenshot_20221214_222634.png> | <img src=images/Screenshot_20221214_222621.png> |
-| <img src=images/Screenshot_20221214_222735.png> | <img src=images/Screenshot_20221214_222714.png> |
+| <img src=images/Screenshot_20221218_204308.png> | <img src=images/Screenshot_20221218_204256.png> |
+| <img src=images/Screenshot_20221218_204336.png> | <img src=images/Screenshot_20221218_204349.png> |
 
 #### Wide Layout
 
