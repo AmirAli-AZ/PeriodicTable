@@ -119,6 +119,11 @@ GridPane {
     -fx-background-color: -fx-bg-color;
 }
 
+.scroll-bar .increment-button .increment-arrow,
+.scroll-bar .decrement-button .decrement-arrow {
+    -fx-background-color: white;
+}
+
 .scroll-bar .thumb {
     -fx-background-color: #313335;
     -fx-background-radius: 3px;
