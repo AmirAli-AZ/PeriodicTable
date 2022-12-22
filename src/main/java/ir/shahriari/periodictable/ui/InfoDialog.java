@@ -97,7 +97,7 @@ public class InfoDialog extends Stage {
             }
         });
 
-        if (boil.toString().equals("null")) {
+        if (boil.toString().equalsIgnoreCase("null")) {
             boilLabel.setText("Boil: N/A");
             boilUnits.setDisable(true);
         } else {
@@ -126,7 +126,7 @@ public class InfoDialog extends Stage {
             }
         });
 
-        if (melt.toString().equals("null")) {
+        if (melt.toString().equalsIgnoreCase("null")) {
             meltLabel.setText("Melt: N/A");
             meltUnits.setDisable(true);
         } else {
