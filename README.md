@@ -13,9 +13,9 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 
 |                      Light                      |                      Dark                       |
 |:-----------------------------------------------:|:-----------------------------------------------:|
-| <img src=images/Screenshot_20221218_204308.png> | <img src=images/Screenshot_20221218_204256.png> |
-| <img src=images/Screenshot_20221218_204336.png> | <img src=images/Screenshot_20221218_204349.png> |
+| <img src=images/Screenshot_20230105_134745.png> | <img src=images/Screenshot_20230105_134621.png> |
+| <img src=images/Screenshot_20230105_134751.png> | <img src=images/Screenshot_20230105_134722.png> |
 
 #### Wide Layout
 
-<img src=images/periodic-table-wide.png>
+<img src=images/wide-periodic-table.png>
