@@ -4,7 +4,11 @@ import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.ui.ElementNode;
 import ir.shahriari.periodictable.ui.PlaceHolder;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
@@ -73,8 +77,8 @@ public class TableCreator implements Runnable {
             );
             GridPane.setConstraints(
                     elementNode,
-                    isWideLayout() ? jsonObject.getInt("wxpos") - 1 : jsonObject.getInt("xpos") - 1,
-                    isWideLayout() ? jsonObject.getInt("wypos") - 1 :jsonObject.getInt("ypos") - 1
+                    isWideLayout() ? jsonObject.getInt("wxpos") : jsonObject.getInt("xpos"),
+                    isWideLayout() ? jsonObject.getInt("wypos") :jsonObject.getInt("ypos")
             );
 
             Platform.runLater(() -> gridPane.getChildren().add(elementNode));
@@ -82,13 +86,39 @@ public class TableCreator implements Runnable {
 
         if (!isWideLayout()) {
             var lanthanidesPlaceHolder = new PlaceHolder("57-71");
-            GridPane.setConstraints(lanthanidesPlaceHolder, 2, 5);
+            GridPane.setConstraints(lanthanidesPlaceHolder, 3, 6);
 
             var actinidesPlaceHolder = new PlaceHolder("89-103");
-            GridPane.setConstraints(actinidesPlaceHolder, 2, 6);
+            GridPane.setConstraints(actinidesPlaceHolder, 3, 7);
 
             Platform.runLater(() -> gridPane.getChildren().addAll(lanthanidesPlaceHolder, actinidesPlaceHolder));
         }
+
+        for (int period = 1; period <= 7; period++) {
+            var label = new Label(String.valueOf(period));
+            label.setPrefHeight(90);
+            label.setMinHeight(Region.USE_PREF_SIZE);
+            label.setPadding(new Insets(5));
+            label.setAlignment(Pos.CENTER);
+            GridPane.setConstraints(label, 0, period);
+
+            Platform.runLater(() -> gridPane.getChildren().add(label));
+        }
+
+        for (int group = 1; group <= 18; group++) {
+            var label = new Label(String.valueOf(group));
+            label.setPadding(new Insets(5));
+            label.setAlignment(Pos.CENTER);
+            label.setPrefWidth(90);
+            label.setMinWidth(Region.USE_PREF_SIZE);
+            if (isWideLayout() && group > 2)
+                GridPane.setConstraints(label, group + 14, 0);
+            else
+                GridPane.setConstraints(label, group, 0);
+
+            Platform.runLater(() -> gridPane.getChildren().add(label));
+        }
+
         creatingTable.set(false);
     }
 
