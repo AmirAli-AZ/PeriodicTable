@@ -15,10 +15,6 @@
     -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
 }
 
-GridPane {
-    -fx-background-color: -fx-bg-color;
-}
-
 #title {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -112,6 +108,7 @@ GridPane {
     -fx-background-color: -fx-bg-color;
 }
 
+.scroll-bar,
 .scroll-bar .track-background,
 .scroll-bar .track,
 .scroll-bar .increment-button,
