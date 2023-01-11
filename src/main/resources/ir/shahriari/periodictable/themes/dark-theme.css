@@ -198,3 +198,17 @@ Text {
 .combo-box .arrow-button .arrow {
     -fx-background-color: white;
 }
+
+.orbit {
+    -fx-fill: transparent;
+    -fx-stroke-width: 2px;
+    -fx-stroke: white;
+}
+
+.slider .thumb {
+    -fx-background-color: #1C1D1F;
+}
+
+.slider .track {
+    -fx-background-color: #313335;
+}

@@ -14,10 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -72,7 +69,14 @@ public class InfoDialog extends Stage {
         titleLabel.setPadding(new Insets(8));
         root.setTop(titleLabel);
 
-        var infoHeader = new HBox(new ElementNode(element));
+        var elementNode = new ElementNode(element);
+        elementNode.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+
+        var bohrModelWindow = new BohrModelWindow(element);
+        var showBohrModelButton = new Button("Show Bohr's Model");
+        showBohrModelButton.setOnAction(actionEvent -> bohrModelWindow.show());
+
+        var infoHeader = new VBox(5, elementNode, showBohrModelButton);
         infoHeader.setAlignment(Pos.CENTER);
 
         var infoLabel = new Label(getInfo(element));
