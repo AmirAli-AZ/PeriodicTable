@@ -2,18 +2,18 @@ package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.utils.ThemeManager;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -46,6 +46,12 @@ public class BohrModelWindow extends Stage {
         borderPane.setBottom(bottom);
 
         var scene = new Scene(borderPane, 900, 600);
+        scene.setOnKeyPressed(keyEvent -> {
+            if (new KeyCodeCombination(KeyCode.ADD, KeyCombination.CONTROL_DOWN).match(keyEvent))
+                slider.setValue(slider.getValue() + 1);
+            else if (new KeyCodeCombination(KeyCode.SUBTRACT, KeyCombination.CONTROL_DOWN).match(keyEvent))
+                slider.setValue(slider.getValue() - 1);
+        });
         ThemeManager.setTheme(scene, ThemeManager.load());
         setTitle("Bohr's Model");
         setScene(scene);
