@@ -16,10 +16,10 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 | <img src=images/Screenshot_20230105_134745.png> | <img src=images/Screenshot_20230105_134621.png> |
 | <img src=images/Screenshot_20230111_215037.png> | <img src=images/Screenshot_20230111_215027.png> |
 
-#### Wide Layout
+## Wide Layout
 
 <img src=images/wide-periodic-table.png>
 
-### Bohr's Model Example
+## Bohr's Model Example
 
 <img src=images/Screenshot_20230111_214546.png>
