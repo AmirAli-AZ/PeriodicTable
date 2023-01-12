@@ -22,4 +22,4 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 
 ## Bohr's Model Example
 
-<img src=images/Screenshot_20230111_214546.png>
+<img src=images/Screenshot_20230112_205144.png>
