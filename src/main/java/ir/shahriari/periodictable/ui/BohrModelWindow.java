@@ -1,7 +1,6 @@
 package ir.shahriari.periodictable.ui;
 
 import ir.shahriari.periodictable.model.Element;
-import ir.shahriari.periodictable.utils.ThemeManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,11 +19,15 @@ import javafx.stage.Stage;
 public class BohrModelWindow extends Stage {
 
     public BohrModelWindow(int[] shells) {
+        var root = new BorderPane();
+        root.setId("root");
+
         var model = new BohrModel(shells);
 
         var scrollPane = new ScrollPane(model);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
+        root.setCenter(scrollPane);
 
         var slider = new Slider();
         HBox.setHgrow(slider, Priority.ALWAYS);
@@ -37,15 +40,11 @@ public class BohrModelWindow extends Stage {
         zoomInLabel.setFont(Font.font(16));
 
         var bottom = new HBox(3, zoomOutLabel, slider, zoomInLabel);
+        bottom.setPadding(new Insets(8));
         bottom.setAlignment(Pos.CENTER);
+        root.setBottom(bottom);
 
-        var borderPane = new BorderPane();
-        borderPane.setId("root");
-        borderPane.setPadding(new Insets(10));
-        borderPane.setCenter(scrollPane);
-        borderPane.setBottom(bottom);
-
-        var scene = new Scene(borderPane, 900, 600);
+        var scene = new Scene(root, 900, 600);
         scene.setOnKeyPressed(keyEvent -> {
             if (new KeyCodeCombination(KeyCode.ADD, KeyCombination.CONTROL_DOWN).match(keyEvent))
                 slider.setValue(slider.getValue() + 1);

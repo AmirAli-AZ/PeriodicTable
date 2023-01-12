@@ -3,7 +3,6 @@ package ir.shahriari.periodictable.ui;
 import ir.shahriari.periodictable.Main;
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.model.TempUnits;
-import ir.shahriari.periodictable.utils.ThemeManager;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.beans.property.ObjectProperty;
