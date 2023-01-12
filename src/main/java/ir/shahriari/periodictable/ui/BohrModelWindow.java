@@ -52,7 +52,6 @@ public class BohrModelWindow extends Stage {
             else if (new KeyCodeCombination(KeyCode.SUBTRACT, KeyCombination.CONTROL_DOWN).match(keyEvent))
                 slider.setValue(slider.getValue() - 1);
         });
-        ThemeManager.setTheme(scene, ThemeManager.load());
         setTitle("Bohr's Model");
         setScene(scene);
     }

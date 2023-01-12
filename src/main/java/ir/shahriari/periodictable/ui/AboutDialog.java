@@ -21,7 +21,6 @@ public class AboutDialog extends Stage {
     public AboutDialog() {
         setTitle("About");
         var scene = new Scene(createContent(), 600, 400);
-        ThemeManager.setTheme(scene, ThemeManager.load());
         setScene(scene);
     }
 

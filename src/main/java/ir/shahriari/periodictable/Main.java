@@ -57,7 +57,7 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
-        addIconsToWindows();
+        syncIconsAndTheme();
         primaryStage.show();
 
         tableCreator.create();
@@ -159,7 +159,7 @@ public class Main extends Application {
         }
     }
 
-    private void addIconsToWindows() {
+    private void syncIconsAndTheme() {
         Window.getWindows().addListener((ListChangeListener<? super Window>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
@@ -170,6 +170,8 @@ public class Main extends Application {
                                     new Image(Objects.requireNonNull(getClass().getResource("icons/icon32.png")).toExternalForm()),
                                     new Image(Objects.requireNonNull(getClass().getResource("icons/icon64.png")).toExternalForm())
                             );
+
+                            ThemeManager.setTheme(stageWindow.getScene(), ThemeManager.load());
                         }
                     }
                 }

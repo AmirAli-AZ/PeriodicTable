@@ -45,7 +45,6 @@ public class InfoDialog extends Stage {
 
         var content = createContent();
         var scene = new Scene(content, 600, 400, Color.TRANSPARENT);
-        ThemeManager.setTheme(scene, ThemeManager.load());
         setScene(scene);
         initOwner(owner);
         initModality(Modality.APPLICATION_MODAL);
