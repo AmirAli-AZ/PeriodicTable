@@ -30,7 +30,7 @@ public class InfoDialog extends Stage {
 
     private final ObjectProperty<Duration> durationProperty = new SimpleObjectProperty<>(Duration.millis(300));
 
-    private final Parent ownerRoot;
+    private final Window owner;
 
     private final Element element;
 
@@ -40,7 +40,7 @@ public class InfoDialog extends Stage {
         Objects.requireNonNull(owner);
 
         this.element = element;
-        ownerRoot = owner.getScene().getRoot();
+        this.owner = owner;
 
         var content = createContent();
         var scene = new Scene(content, 600, 400, Color.TRANSPARENT);
@@ -189,15 +189,14 @@ public class InfoDialog extends Stage {
 
     public final void openDialog() {
         show();
-        var bounds = ownerRoot.localToScreen(ownerRoot.getBoundsInLocal());
-        var width = bounds.getWidth() / 2;
-        var height = bounds.getHeight() / 2;
+        var width = owner.getWidth() / 2;
+        var height = owner.getHeight() / 2;
         if (width > 600)
             setWidth(width);
         if (height > 400)
             setHeight(height);
-        setX(bounds.getMinX() + (bounds.getWidth() - getWidth()) / 2);
-        setY(bounds.getMinY() + (bounds.getHeight() - getHeight()) / 2);
+        setX(owner.getX() + (owner.getWidth() - getWidth()) / 2);
+        setY(owner.getY() + (owner.getHeight() - getHeight()) / 2);
         scaleTransition.play();
     }
 
