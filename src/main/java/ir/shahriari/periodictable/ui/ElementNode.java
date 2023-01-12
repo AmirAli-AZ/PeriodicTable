@@ -14,6 +14,8 @@ public class ElementNode extends VBox {
 
     private final Element element;
 
+    private boolean blockMouseClick;
+
     public ElementNode(Element element) {
         Objects.requireNonNull(element);
         this.element = element;
@@ -42,6 +44,8 @@ public class ElementNode extends VBox {
 
         getChildren().addAll(atomicNumberLabel, symbolLabel, nameLabel, atomicMass);
         setOnMouseClicked(mouseEvent -> {
+            if (isMouseClickBlocked())
+                return;
             var infoDialog = new InfoDialog(element, getScene().getWindow());
             infoDialog.openDialog();
         });
@@ -60,5 +64,13 @@ public class ElementNode extends VBox {
                 "Atomic Mass: " + element.atomicMass() + '\n' +
                 "Group: " + element.group() + '\n' +
                 "Period: " + element.period();
+    }
+
+    public void blockMouseClick(boolean blockMouseClick) {
+        this.blockMouseClick = blockMouseClick;
+    }
+
+    public boolean isMouseClickBlocked() {
+        return blockMouseClick;
     }
 }

@@ -69,6 +69,7 @@ public class InfoDialog extends Stage {
         root.setTop(titleLabel);
 
         var elementNode = new ElementNode(element);
+        elementNode.blockMouseClick(true);
         elementNode.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         var bohrModelWindow = new BohrModelWindow(element);
