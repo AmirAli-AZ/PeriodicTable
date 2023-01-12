@@ -11,6 +11,7 @@ public class BohrModel extends StackPane {
 
     public BohrModel(int[] shells) {
         core = new Circle(20, Color.RED);
+        core.getStyleClass().add("core");
         getChildren().add(core);
 
         for (int i = 0; i < shells.length; i++) {
@@ -26,7 +27,7 @@ public class BohrModel extends StackPane {
                 angle += angleStep;
 
                 var electron = new Circle();
-                electron.setFill(Color.BLUE);
+                electron.getStyleClass().add("electron");
                 electron.radiusProperty().bind(core.radiusProperty().divide(2));
                 electron.translateXProperty().bind(Bindings.multiply(Math.sin(angle), orbit.radiusProperty()));
                 electron.translateYProperty().bind(Bindings.multiply(Math.cos(angle), orbit.radiusProperty()));

@@ -212,3 +212,11 @@ Text {
 .slider .track {
     -fx-background-color: #313335;
 }
+
+.core {
+    -fx-fill: #D32143;
+}
+
+.electron {
+    -fx-fill: #2196F3;
+}

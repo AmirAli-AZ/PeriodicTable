@@ -196,3 +196,10 @@ Text {
     -fx-background-color: lightgray;
 }
 
+.core {
+    -fx-fill: #D32143;
+}
+
+.electron {
+    -fx-fill: #2196F3;
+}
