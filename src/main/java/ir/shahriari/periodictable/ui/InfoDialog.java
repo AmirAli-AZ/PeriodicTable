@@ -44,7 +44,7 @@ public class InfoDialog extends Stage {
         ownerRoot = owner.getScene().getRoot();
 
         var content = createContent();
-        var scene = new Scene(content, Color.TRANSPARENT);
+        var scene = new Scene(content, 600, 400, Color.TRANSPARENT);
         ThemeManager.setTheme(scene, ThemeManager.load());
         setScene(scene);
         initOwner(owner);
@@ -62,7 +62,6 @@ public class InfoDialog extends Stage {
     private Parent createContent() {
         var root = new BorderPane();
         root.setId("window");
-        root.setPrefSize(600, 400);
 
         var titleLabel = new Label(element.name());
         titleLabel.setId("title");
@@ -73,6 +72,8 @@ public class InfoDialog extends Stage {
         elementNode.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
         var bohrModelWindow = new BohrModelWindow(element);
+        bohrModelWindow.initOwner(this);
+
         var showBohrModelButton = new Button("Show Bohr's Model");
         showBohrModelButton.setOnAction(actionEvent -> bohrModelWindow.show());
 
@@ -190,6 +191,12 @@ public class InfoDialog extends Stage {
     public final void openDialog() {
         show();
         var bounds = ownerRoot.localToScreen(ownerRoot.getBoundsInLocal());
+        var width = bounds.getWidth() / 2;
+        var height = bounds.getHeight() / 2;
+        if (width > 600)
+            setWidth(width);
+        if (height > 400)
+            setHeight(height);
         setX(bounds.getMinX() + (bounds.getWidth() - getWidth()) / 2);
         setY(bounds.getMinY() + (bounds.getHeight() - getHeight()) / 2);
         scaleTransition.play();
