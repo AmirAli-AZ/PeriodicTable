@@ -196,10 +196,10 @@ Text {
     -fx-background-color: lightgray;
 }
 
-.core {
+.bohr-model .core {
     -fx-fill: #D32143;
 }
 
-.electron {
+.bohr-model .electron {
     -fx-fill: #2196F3;
 }

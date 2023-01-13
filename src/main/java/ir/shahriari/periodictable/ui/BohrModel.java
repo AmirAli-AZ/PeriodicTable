@@ -10,6 +10,8 @@ public class BohrModel extends StackPane {
     private final Circle core;
 
     public BohrModel(int[] shells) {
+        getStyleClass().add("bohr-model");
+
         core = new Circle(20, Color.RED);
         core.getStyleClass().add("core");
         getChildren().add(core);

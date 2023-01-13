@@ -213,10 +213,10 @@ Text {
     -fx-background-color: #313335;
 }
 
-.core {
+.bohr-model .core {
     -fx-fill: #D32143;
 }
 
-.electron {
+.bohr-model .electron {
     -fx-fill: #2196F3;
 }
