@@ -43,8 +43,7 @@ public class InfoDialog extends Stage {
         this.owner = owner;
 
         var content = createContent();
-        var scene = new Scene(content, 600, 400, Color.TRANSPARENT);
-        setScene(scene);
+        setScene(new Scene(content, 600, 400, Color.TRANSPARENT));
         initOwner(owner);
         initModality(Modality.APPLICATION_MODAL);
 
