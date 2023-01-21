@@ -11,10 +11,10 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 
 ## Images
 
-|                      Light                      |                      Dark                       |
-|:-----------------------------------------------:|:-----------------------------------------------:|
-| <img src=images/Screenshot_20230105_134745.png> | <img src=images/Screenshot_20230105_134621.png> |
-| <img src=images/Screenshot_20230112_155228.png> | <img src=images/Screenshot_20230112_155205.png> |
+|                      Light                      |                       Dark                        |
+|:-----------------------------------------------:|:-------------------------------------------------:|
+| <img src=images/Screenshot_20230121_181524.png> |  <img src=images/Screenshot_20230121_181512.png>  |
+| <img src=images/Screenshot_20230121_181554.png> | <img src=images/Screenshot_20230121_181603-1.png> |
 
 ## Wide Layout
 
@@ -22,4 +22,4 @@ thanks to [Periodic-Table-JSON](https://github.com/Bowserinator/Periodic-Table-J
 
 ## Bohr's Model Example
 
-<img src=images/Screenshot_20230112_205144.png>
+<img src=images/Screenshot_20230121_181625.png>
