@@ -2,6 +2,7 @@
   <img src=https://img.shields.io/github/license/AmirAli-AZ/PeriodicTable>
   <img src=https://img.shields.io/github/v/release/AmirAli-AZ/PeriodicTable>
   <img src=https://img.shields.io/github/stars/AmirAli-AZ/PeriodicTable?style=social>
+  <img src="https://img.shields.io/github/actions/workflow/status/AmirAli-AZ/periodictable.github.io/hugo.yml?label=website-build">
 </div>
 <br>
 
