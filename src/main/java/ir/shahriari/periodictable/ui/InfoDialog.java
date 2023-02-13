@@ -1,6 +1,6 @@
 package ir.shahriari.periodictable.ui;
 
-import ir.shahriari.periodictable.Main;
+import ir.shahriari.periodictable.App;
 import ir.shahriari.periodictable.model.Element;
 import ir.shahriari.periodictable.model.TempUnits;
 import javafx.animation.Interpolator;
@@ -151,7 +151,7 @@ public class InfoDialog extends Stage {
         var sourceButton = new Button("Source");
         sourceButton.getStyleClass().add("default-button");
         sourceButton.setDefaultButton(true);
-        sourceButton.setOnAction(actionEvent -> Main.getInstance().getHostServices().showDocument(element.source()));
+        sourceButton.setOnAction(actionEvent -> App.getInstance().getHostServices().showDocument(element.source()));
 
         var okButton = new Button("OK");
         okButton.setOnAction(actionEvent -> closeDialog());

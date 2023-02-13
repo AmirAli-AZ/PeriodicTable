@@ -28,13 +28,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Main extends Application {
+public class App extends Application {
 
-    private static Main instance;
+    private static App instance;
 
     private TableCreator tableCreator;
 
-    public Main() {
+    public App() {
         instance = this;
     }
 
@@ -42,7 +42,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static Main getInstance() {
+    public static App getInstance() {
         return instance;
     }
 

@@ -1,6 +1,6 @@
 package ir.shahriari.periodictable.ui;
 
-import ir.shahriari.periodictable.Main;
+import ir.shahriari.periodictable.App;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -33,11 +33,11 @@ public class AboutDialog extends Stage {
         );
         var text2 = new Text("This program is based on");
         var link1 = new Hyperlink("Periodic-Table-JSON");
-        link1.setOnAction(actionEvent -> Main.getInstance().getHostServices().showDocument("https://github.com/Bowserinator/Periodic-Table-JSON"));
+        link1.setOnAction(actionEvent -> App.getInstance().getHostServices().showDocument("https://github.com/Bowserinator/Periodic-Table-JSON"));
         var text3 = new Text("and written in Java and Javafx.\n");
         var text4 = new Text("You can also contribute to this project on");
         var link2 = new Hyperlink("Github");
-        link2.setOnAction(actionEvent -> Main.getInstance().getHostServices().showDocument("https://github.com/AmirAli-AZ/PeriodicTable"));
+        link2.setOnAction(actionEvent -> App.getInstance().getHostServices().showDocument("https://github.com/AmirAli-AZ/PeriodicTable"));
 
         var textFlow = new TextFlow(text1, text2, link1, text3, text4, link2);
 
