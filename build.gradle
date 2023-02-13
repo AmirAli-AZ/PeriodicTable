@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
-    id 'org.beryx.runtime' version '1.12.7'
+    id 'org.beryx.jlink' version '2.26.0'
 }
 
 group 'ir.shariari'
@@ -24,7 +24,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 application {
-    mainClass = 'ir.shahriari.periodictable.Launcher'
+    mainModule = 'ir.shahriari.periodictable'
+    mainClass = 'ir.shahriari.periodictable.App'
 }
 
 javafx {
@@ -33,18 +34,6 @@ javafx {
 }
 
 dependencies {
-    implementation 'org.openjfx:javafx-controls:17.0.6:linux'
-    implementation 'org.openjfx:javafx-controls:17.0.6:win'
-
-    implementation 'org.openjfx:javafx-swing:17.0.6:linux'
-    implementation 'org.openjfx:javafx-swing:17.0.6:win'
-
-    implementation 'org.openjfx:javafx-graphics:17.0.6:linux'
-    implementation 'org.openjfx:javafx-graphics:17.0.6:win'
-
-    implementation 'org.openjfx:javafx-base:17.0.6:linux'
-    implementation 'org.openjfx:javafx-base:17.0.6:win'
-
     implementation 'org.json:json:20220924'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
@@ -55,14 +44,14 @@ test {
     useJUnitPlatform()
 }
 
-runtime {
+jlink {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-    imageZip = project.file("${buildDir}/distributions/${project.name}.zip")
+    imageZip = project.file("${buildDir}/distributions/${project.name}-${javafx.platform.classifier}.zip")
     launcher {
-        noConsole = true
+        name = 'app'
     }
 }
 
-runtimeZip {
+jlinkZip {
     group = 'distribution'
 }
