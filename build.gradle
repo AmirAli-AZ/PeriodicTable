@@ -7,6 +7,7 @@ plugins {
 
 group 'ir.shariari'
 version '1.4-ALPHA'
+description 'a simple periodic table app for chemistery lovers'
 
 repositories {
     mavenCentral()
@@ -50,8 +51,52 @@ jlink {
     launcher {
         name = 'app'
     }
+
+    jpackage {
+        installerOptions = [
+                '--description', project.description,
+                '--copyright', 'Copyrigth © 2023',
+                '--app-version', project.version
+        ]
+
+        installerType = project.findProperty('installerType')
+        // we will pass this from the command line (example: -PinstallerType=msi)
+        if (installerType == 'msi') {
+            imageOptions += ['--icon', 'src/main/resources/ir/shahriari/periodictable/icons/logo.ico']
+            installerOptions += [
+                    '--win-per-user-install', '--win-dir-chooser',
+                    '--win-menu', '--win-shortcut'
+            ]
+        }
+        if (installerType == 'pkg') {
+            imageOptions += ['--icon', 'src/main/resources/ir/shahriari/periodictable/icons/logo.ico']
+        }
+        if (installerType in ['deb', 'rpm']) {
+            imageOptions += ['--icon', 'src/main/resources/ir/shahriari/periodictable/icons/logo.png']
+            installerOptions += [
+                    '--linux-menu-group', 'Educational',
+                    '--linux-shortcut'
+            ]
+        }
+        if (installerType == 'deb') {
+            installerOptions += [
+                    '--linux-deb-maintainer', 'azimi6370@gmail.com'
+            ]
+        }
+        if (installerType == 'rpm') {
+            installerOptions += [
+                    '--linux-rpm-license-type', 'Apache-2.0'
+            ]
+        }
+    }
 }
 
 jlinkZip {
     group = 'distribution'
+}
+
+jpackage {
+    doFirst {
+        project.getProperty('installerType') // throws exception if its missing
+    }
 }

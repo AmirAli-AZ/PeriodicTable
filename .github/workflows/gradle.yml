@@ -9,7 +9,14 @@ jobs:
   gradle:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            build_commands: gradle clean jpackage -PinstallerType=deb
+            files: build/jpackage/*.deb
+          - os: windows-latest
+            build_commands: gradle clean jpackage -PinstallerType=msi
+            files: build/jpackage/*.msi
+
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
@@ -28,4 +35,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: build-${{ matrix.os }}
-        path: build/distributions/
+        path: ${{ matrix.files }}
