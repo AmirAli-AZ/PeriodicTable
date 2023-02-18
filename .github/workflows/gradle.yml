@@ -29,7 +29,7 @@ jobs:
       uses: gradle/gradle-build-action@v2
     
     - name: Execute Gradle build
-      run: gradle clean jlinkZip
+      run: ${{ matrix.build_commands }}
       
     - name: Upload build reports
       uses: actions/upload-artifact@v3
