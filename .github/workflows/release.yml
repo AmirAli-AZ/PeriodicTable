@@ -16,7 +16,7 @@ jobs:
               gradle jlinkZip
             files: |
               build/jpackage/*.deb
-              build/distributions/
+              build/distributions/*.zip
           - os: windows-latest
             build_commands: gradle clean jpackage -PinstallerType=msi
             files: build/jpackage/*.msi
