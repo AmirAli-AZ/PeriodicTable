@@ -55,6 +55,7 @@ jlink {
     jpackage {
         installerName = project.name
         imageName = project.name
+        vendor = 'Amir Ali Azimi'
         installerOptions = [
                 '--description', project.description,
                 '--copyright', 'Copyrigth © 2023',
