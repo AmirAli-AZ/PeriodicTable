@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'ir.shariari'
-version '1.4'
+version '1.4.1'
 description 'a simple periodic table app for chemistery lovers'
 
 repositories {
