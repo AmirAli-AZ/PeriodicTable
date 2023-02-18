@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'ir.shariari'
-version '1.4-ALPHA'
+version '1.4'
 description 'a simple periodic table app for chemistery lovers'
 
 repositories {
@@ -54,6 +54,7 @@ jlink {
 
     jpackage {
         installerOptions = [
+                '--name', project.name,
                 '--description', project.description,
                 '--copyright', 'Copyrigth © 2023',
                 '--app-version', project.version
