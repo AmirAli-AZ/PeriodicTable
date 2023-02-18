@@ -53,8 +53,9 @@ jlink {
     }
 
     jpackage {
+        installerName = project.name
+        imageName = project.name
         installerOptions = [
-                '--name', project.name,
                 '--description', project.description,
                 '--copyright', 'Copyrigth © 2023',
                 '--app-version', project.version
