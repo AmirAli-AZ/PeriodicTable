@@ -1,8 +1,8 @@
 <div align=center>
-  <img src=https://img.shields.io/github/license/AmirAli-AZ/PeriodicTable>
-  <img src=https://img.shields.io/github/v/release/AmirAli-AZ/PeriodicTable>
-  <img src=https://img.shields.io/github/stars/AmirAli-AZ/PeriodicTable?style=social>
-  <img src="https://img.shields.io/github/actions/workflow/status/AmirAli-AZ/periodictable.github.io/hugo.yml?label=website-build">
+  <img alt="Github License" src="https://img.shields.io/github/license/AmirAli-AZ/PeriodicTable">
+  <img alt="Github Release" src="https://img.shields.io/github/v/release/AmirAli-AZ/PeriodicTable">
+  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/AmirAli-AZ/PeriodicTable?style=social">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/AmirAli-AZ/PeriodicTable/gradle.yml">
 </div>
 <br>
 
